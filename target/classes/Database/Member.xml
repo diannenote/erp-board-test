@@ -5,7 +5,12 @@
 	
 	<select id="mainList" resultType="Member">
 		select * from member
-	
 	</select>
+	
+	<insert id="insert" parameterType="Member">
+		insert into member values(num_sql.nextval, #{kor_name}, #{eng_name}, #{chn_name}, #{jumin_nof}, #{jumin_nob}, #{image},
+                #{birth1}, #{birth2}, #{birth3}, #{sol_flag}, #{sex}, #{marry_flag}, #{work_year}, #{payment_type}, #{dept}, #{job_type}, #{address},
+                #{phone1}, #{phone2}, #{phone3}, #{email}, #{tech_lev}, #{liquor})
+	</insert>
 	
 </mapper>

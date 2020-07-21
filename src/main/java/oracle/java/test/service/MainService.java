@@ -7,4 +7,5 @@ import oracle.java.test.model.Member;
 public interface MainService {
 
 	List<Member> mainList();
+	int insert(Member member);
 }

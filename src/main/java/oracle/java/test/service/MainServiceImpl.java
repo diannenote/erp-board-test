@@ -18,4 +18,9 @@ public class MainServiceImpl implements MainService {
 	public List<Member> mainList() {
 		return mainDao.mainList();
 	}
+
+	@Override
+	public int insert(Member member) {
+		return mainDao.insert(member);
+	}
 }

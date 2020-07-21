@@ -7,5 +7,6 @@ import oracle.java.test.model.Member;
 public interface MainDao {
 
 	List<Member> mainList();
+	int insert(Member member);
 
 }

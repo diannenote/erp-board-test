@@ -18,4 +18,9 @@ public class MainDaoImpl implements MainDao {
 	public List<Member> mainList() {
 		return session.selectList("mainList");
 	}
+
+	@Override
+	public int insert(Member member) {
+		return session.insert("insert", member);
+	}
 }
