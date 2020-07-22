@@ -1,13 +1,55 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
+	<style type="text/css">
+		.img_wrap {
+			width: 100px;
+		}
+		.img_wrap img {
+			max-width: 100%;
+		}
+	
+	</style>
+	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript">
+	
+		var sel_files;
+		
+		$(document).ready(function() {
+			$("#input_img").on("change", handleImgFileSelect);
+		});
+		
+		function handleImgFileSelect(e) {
+			var files = e.target.files;
+			var filesArr = Array.prototype.slice.call(files);
+			
+			filesArr.forEach(function(f) {
+				if(!f.type.match("image.*")) {
+					alert("확장자는 이미지 확장자만 가능합니다.");
+					return;
+				}
+				
+				sel_file= f;
+				
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					$("#img").attr("src", e.target.result);
+				}
+				reader.readAsDataURL(f);
+			});
+		}
+	</script>
 </head>
 <body topmargin="0" leftmargin="0">
-	<form action="insert" method="post">
+	<form action="insert" method="post" enctype="multipart/form-data">
 		<table width="640" border="0" cellspacing="0" cellpadding="0">
 		  <tr> 
 		    <td width="640">&nbsp;</td>
@@ -52,11 +94,12 @@
 		                        <tr>
 		                          <td width="144" height="119" align="center"><table width="100" border="0" cellspacing="0" cellpadding="0">
 		                            <tr>
-		                              <td height="112" bgcolor="#CCCCCC"><table width="100" border="0" cellspacing="1" cellpadding="0">
-		                                  <tr>
-		                                    <td height="110" bgcolor="#FFFFFF">&nbsp;</td>
-		                                  </tr>
-		                              </table></td>
+		                              <td height="112" bgcolor="#CCCCCC">
+			                              <table width="100" border="0" cellspacing="1" cellpadding="0">
+			                                  <tr>
+			                                    <td height="110" bgcolor="#FFFFFF"><div class="img_wrap"><img id="img"><!-- 사진들어갈곳 --></div></td>
+			                                  </tr>
+			                              </table></td>
 		                            </tr>
 		                          </table></td>
 		                          <td width="456"><table width="423" border="0" cellspacing="2" cellpadding="0">
@@ -103,9 +146,12 @@
 		                    <tr> 
 		                      <td bgcolor="#E4EBF1"><table width="526" border="0" cellspacing="1" cellpadding="1">
 		                          <tr> 
-		                            <td width="102" align="right"><strong>사진파일명 :&nbsp;</strong></td>
-		                            <td width="268"><input name="image" type="text" size="40"></td>
-		                            <td width="146"><font color="#FF0000"><img src="image/bt_search.gif" width="49" height="18"></font></td>
+		                            <td width="300" align="center"><strong>사진파일명 : &nbsp;</strong></td>
+		                            <td width="268">
+		                            	<!--사진업로드-->
+		                            	<input name="file" type="file" id="input_img">
+		                            </td>
+		                            <td width="400"></td>
 		                          </tr>
 		                        </table></td>
 		                    </tr>
@@ -114,9 +160,9 @@
 		                          <tr> 
 		                            <td width="102" align="right"><strong>생년월일 :&nbsp;</strong></td>
 		                            <td width="391">
-		                            	<input name="birth1" type="text" size="10">년
-		                                <input name="birth2" type="text" size="7">월
-		                                <input name="birth3" type="text" size="7">일
+		                            	<input name="birth1" type="text" size="5">년
+		                                <input name="birth2" type="text" size="3">월
+		                                <input name="birth3" type="text" size="3">일
 		                               
 		                               (<input type="radio" name="sol_flag" value="양력" checked="checked">양력
 		                                <input type="radio" name="sol_flag" value="음력">음력 )

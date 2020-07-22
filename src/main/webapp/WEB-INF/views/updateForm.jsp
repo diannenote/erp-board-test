@@ -1,10 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
+<style type="text/css">
+		.img_wrap {
+			width: 100px;
+		}
+		.img_wrap img {
+			max-width: 100%;
+		}
+	
+	</style>
+	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript">
+	
+		var sel_files;
+		
+		$(document).ready(function() {
+			$("#input_img").on("change", handleImgFileSelect);
+		});
+		
+		function handleImgFileSelect(e) {
+			var files = e.target.files;
+			var filesArr = Array.prototype.slice.call(files);
+			
+			filesArr.forEach(function(f) {
+				if(!f.type.match("image.*")) {
+					alert("확장자는 이미지 확장자만 가능합니다.");
+					return;
+				}
+				
+				sel_file= f;
+				
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					$("#img").attr("src", e.target.result);
+				}
+				reader.readAsDataURL(f);
+			});
+		}
+	</script>
 </head>
 <body topmargin="0" leftmargin="0">
 	<form action="update" method="post">
@@ -55,7 +97,7 @@
 		                            <tr>
 		                              <td height="112" bgcolor="#CCCCCC"><table width="100" border="0" cellspacing="1" cellpadding="0">
 		                                  <tr>
-		                                    <td height="110" bgcolor="#FFFFFF">&nbsp;</td>
+		                                    <td height="110" bgcolor="#FFFFFF">&nbsp;<div class="img_wrap"><img id="img"><!-- 사진들어갈곳 --></div></td>
 		                                  </tr>
 		                              </table></td>
 		                            </tr>
@@ -73,18 +115,18 @@
 		                            <tr>
 		                              <td height="26" align="right"><strong>영문이름 :&nbsp;</strong></td>
 		                              <td height="26">
-		                              <input type="text" name="eng_name"></td>
+		                              <input type="text" name="eng_name" value=${member.eng_name }></td>
 		                            </tr>
 		                            <tr>
 		                              <td height="26" align="right"><strong>한문이름:</strong>&nbsp;</td>
-		                              <td height="26"><input type="text" name="chn_name"></td>
+		                              <td height="26"><input type="text" name="chn_name" value=${member.chn_name }></td>
 		                            </tr>
 		                            <tr>
 		                              <td height="26" align="right"><strong>주민등록번호 :</strong>&nbsp;</td>
 		                              <td height="26">
-		                              <input name="jumin_nof" type="text" size="15" required="required">
+		                              <input name="jumin_nof" type="text" size="15" required="required" value=${member.jumin_nof }>
 								      	-
-								      <input name="jumin_nob" type="text" size="15" required="required"></td>
+								      <input name="jumin_nob" type="text" size="15" required="required" value=${member.jumin_nob }></td>
 		                            </tr>
 		                          </table></td>
 		                        </tr>
@@ -103,10 +145,12 @@
 		                <td bgcolor="#CCCCCC"><table width="600" border="0" cellspacing="1" cellpadding="0">
 		                    <tr> 
 		                      <td bgcolor="#E4EBF1"><table width="526" border="0" cellspacing="1" cellpadding="1">
-		                          <tr> 
+		                          <tr class="jumbotron"> 
 		                            <td width="102" align="right"><strong>사진파일명 :&nbsp;</strong></td>
-		                            <td width="268"><input name="image" type="text" size="40"></td>
-		                            <td width="146"><font color="#FF0000"><img src="image/bt_search.gif" width="49" height="18"></font></td>
+		                            <td width="268">
+		                            <!--사진업로드-->
+		                            	<input name="file" type="file" id="input_img">
+		                            <td width="400"></td>
 		                          </tr>
 		                        </table></td>
 		                    </tr>
@@ -115,12 +159,19 @@
 		                          <tr> 
 		                            <td width="102" align="right"><strong>생년월일 :&nbsp;</strong></td>
 		                            <td width="391">
-		                            	<input name="birth1" type="text" size="10">년
-		                                <input name="birth2" type="text" size="7">월
-		                                <input name="birth3" type="text" size="7">일
-		                               
-		                               (<input type="radio" name="sol_flag" value="양력" checked="checked">양력
-		                                <input type="radio" name="sol_flag" value="음력">음력 )
+		                            	<input name="birth1" type="text" size="5" value=${member.birth1 }>년
+		                                <input name="birth2" type="text" size="3" value=${member.birth2 }>월
+		                                <input name="birth3" type="text" size="3" value=${member.birth3 }>일
+		                               <c:choose>
+			                               <c:when test="${member.sol_flag eq '양력' }">
+			                                	(<input type="radio" name="sol_flag" value="양력" checked="checked">양력
+			                                	<input type="radio" name="sol_flag" value="음력">음력 )
+			                                </c:when>
+			                                <c:otherwise>
+			                                	(<input type="radio" name="sol_flag" value="양력">양력
+			                                	<input type="radio" name="sol_flag" value="음력" checked="checked">음력 )
+			                                </c:otherwise>
+		                               </c:choose>
 		                            </td>
 		                          </tr>
 		                        </table></td>
@@ -130,8 +181,17 @@
 		                          <tr> 
 		                            <td width="102" align="right"><strong>성별 :&nbsp; </strong></td>
 		                            <td width="391"> 
-		                            	<input type="radio" name="sex" value="남자" checked="checked"> 남자
-		                                <input type="radio" name="sex" value="여자"> 여자
+		                            	<c:choose>
+		                            		<c:when test="${member.sex eq '남자' }">
+		                            			<input type="radio" name="sex" value="남자" checked="checked"> 남자
+		                                		<input type="radio" name="sex" value="여자"> 여자
+		                            		</c:when>
+		                            		<c:otherwise>
+		                            			<input type="radio" name="sex" value="남자" > 남자
+		                                		<input type="radio" name="sex" value="여자" checked="checked"> 여자
+		                            		</c:otherwise>
+		                            	</c:choose>
+		                            	
 		                            </td>
 		                          </tr>
 		                        </table></td>
@@ -141,8 +201,17 @@
 		                          <tr> 
 		                            <td width="102" align="right"><strong>결혼유무 :&nbsp;</strong></td>
 		                            <td width="391"> 
-		                            	<input type="radio" name="marry_flag" value="유" checked="checked"> 유
-		                                <input type="radio" name="marry_flag" value="무"> 무
+		                            	<c:choose>
+		                            		<c:when test="${member.marry_flag eq '유' }">
+		                            			<input type="radio" name="marry_flag" value="유" checked="checked"> 유
+		                                		<input type="radio" name="marry_flag" value="무"> 무
+		                            		</c:when>
+		                            		<c:otherwise>
+		                            			<input type="radio" name="marry_flag" value="유" > 유
+		                                		<input type="radio" name="marry_flag" value="무" checked="checked"> 무
+		                            		</c:otherwise>
+		                            	</c:choose>
+		                            	
 		                             </td>
 		                          </tr>
 		                        </table></td>
@@ -151,7 +220,7 @@
 		                      <td bgcolor="#E4EBF1"><table width="500" border="0" cellspacing="1" cellpadding="1">
 		                          <tr> 
 		                            <td width="101" align="right"><strong>년차 :&nbsp;</strong></td>
-		                            <td width="392"><input name="work_year" type="text" size="10"> 
+		                            <td width="392"><input name="work_year" type="text" size="10" value="${member.work_year }"> 
 		                            </td>
 		                          </tr>
 		                        </table></td>
@@ -160,9 +229,19 @@
 		                      <td bgcolor="#E4EBF1"><table width="500" border="0" cellspacing="1" cellpadding="1">
 		                          <tr> 
 		                            <td width="101" align="right"><strong>급여 지급유형 :&nbsp;</strong></td>
-		                            <td width="392"> <select name="payment_type">
-		                                <option value="월급">월급</option>
-		                                <option value="주급">주급</option>
+		                            <td width="392"> 
+		                            	<select name="payment_type">
+		                            	<c:choose>
+		                            		<c:when test="${member.payment_type eq '월급' }">
+		                            			<option selected value="월급">월급</option>
+		                                		<option value="주급">주급</option>
+		                            		</c:when>
+		                            		<c:otherwise>
+		                                		<option selected value="주급">주급</option>
+		                            			<option value="월급">월급</option>
+		                            		</c:otherwise>
+		                            	</c:choose>
+		                                
 		                              </select> </td>
 		                          </tr>
 		                        </table></td>
@@ -171,21 +250,41 @@
 		                      <td bgcolor="#E4EBF1"><table width="500" border="0" cellspacing="1" cellpadding="1">
 		                          <tr> 
 		                            <td width="101" align="right"><strong>희망직무 :&nbsp;</strong></td>
-		                            <td width="392"> <select name="dept">
-		                                <option value="SI">SI</option>
-		                                <option value="SM">SM</option>
-		                              </select> </td>
-		                          </tr>
+		                            <td width="392"> 
+		                            	<select name="dept">
+		                            	<c:choose>
+		                            		<c:when test="${member.dept eq 'SI' }">
+		                            			<option selected value="SI">SI</option>
+		                                		<option value="SM">SM</option>
+		                            		</c:when>
+		                            		<c:otherwise>
+		                            			<option value="SI">SI</option>
+		                                		<option selected value="SM">SM</option>
+		                            		</c:otherwise>
+		                            	</c:choose>
+		                                </select> 
+		                             </td>
+		                           </tr>
 		                        </table></td>
 		                    </tr>
 		                    <tr> 
 		                      <td bgcolor="#E4EBF1"><table width="500" border="0" cellspacing="1" cellpadding="1">
 		                          <tr> 
 		                            <td width="101" align="right"><strong>입사유형:&nbsp;</strong></td>
-		                            <td width="392"> <select name="job_type">
-		                                <option value="정규직">정규직</option>
-		                                <option value="계약직">계약직</option>
-		                              </select> </td>
+		                            <td width="392"> 
+		                            	<select name="job_type">
+		                            	<c:choose>
+		                            		<c:when test="${member.job_type eq '정규직' }">
+		                            			<option selected value="정규직">정규직</option>
+		                                		<option value="계약직">계약직</option>
+		                            		</c:when>
+		                            		<c:otherwise>
+		                            			<option value="정규직">정규직</option>
+		                                		<option selected value="계약직">계약직</option>
+		                            		</c:otherwise>
+		                            	</c:choose>
+		                              	</select> 
+		                             </td>
 		                          </tr>
 		                        </table></td>
 		                    </tr>
@@ -194,7 +293,7 @@
 		                          <tr> 
 		                            <td width="101" align="right"><strong>주소:&nbsp;</strong></td>
 		                            <td width="392">
-		                              <input name="address" type="text" size="40"> 
+		                              <input name="address" type="text" size="40" value="${member.address }"> 
 		                            </td>
 		                          </tr>
 		                        </table></td>
@@ -204,11 +303,11 @@
 		                          <tr> 
 		                            <td width="101" align="right"><strong>연락처:&nbsp;</strong></td>
 		                            <td width="392">
-		                            	<input name="phone1" type="text" size="10">
+		                            	<input name="phone1" type="text" size="10" value="${member.phone1 }">
 		                              		- 
-		                              	<input name="phone2" type="text" size="10">
+		                              	<input name="phone2" type="text" size="10" value="${member.phone2 }">
 		                              		- 
-		                              	<input name="phone3" type="text" size="10"></td>
+		                              	<input name="phone3" type="text" size="10" value="${member.phone3 }"></td>
 		                          </tr>
 		                        </table></td>
 		                    </tr>
@@ -216,8 +315,7 @@
 		                      <td bgcolor="#E4EBF1"><table width="500" border="0" cellspacing="1" cellpadding="1">
 		                          <tr> 
 		                            <td width="101" align="right"><strong>이메일:&nbsp;</strong></td>
-		                            <td width="392"><input name="email" type="text" size="20"> 
-		                            </td>
+		                            <td width="392"><input name="email" type="text" size="20" value="${member.email }"></td> 
 		                          </tr>
 		                        </table></td>
 		                    </tr>
@@ -225,7 +323,7 @@
 		                      <td bgcolor="#E4EBF1"><table width="500" border="0" cellspacing="1" cellpadding="1">
 		                          <tr> 
 		                            <td width="101" align="right"><strong>기술등급:&nbsp;</strong></td>
-		                            <td width="392"><input name="tech_lev" type="text" size="20"> 
+		                            <td width="392"><input name="tech_lev" type="text" size="20" value="${member.tech_lev }"> 
 		                            </td>
 		                          </tr>
 		                        </table></td>
@@ -234,7 +332,7 @@
 		                      <td bgcolor="#E4EBF1"><table width="500" border="0" cellspacing="1" cellpadding="1">
 		                          <tr> 
 		                            <td width="101" align="right"><strong>주량:&nbsp;</strong></td>
-		                            <td width="392"><input name="liquor" type="text" size="20"> 
+		                            <td width="392"><input name="liquor" type="text" size="20" value="${member.liquor }"> 
 		                            </td>
 		                          </tr>
 		                        </table></td>

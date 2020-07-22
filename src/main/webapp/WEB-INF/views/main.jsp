@@ -75,8 +75,9 @@
 	                <td width="143" height="20"><strong>경력검색</strong></td>
 	              </tr>
 	              <tr align="right"> 
-	                <td colspan="2"><input name="textfield" type="text" class="flat" size="15" maxlength="14"> 
-	                  <img src="image/search.gif" width="49" height="18" align="absmiddle"></td>
+	                <td colspan="2">
+	                	<input name="textfield" type="text" class="flat" size="15" maxlength="14"> 
+	                    <img src="image/search.gif" width="49" height="18" align="absmiddle"></td>
 	              </tr>
 	            </table>
 			  <!------------------------------ 경력검색 ---------------------------------->
@@ -205,7 +206,6 @@
 		}
 		
 		function submit() {
-			console.log('?????');
 			var formTag = document.getElementById("keyword");
 			formTag.submit();
 		}
