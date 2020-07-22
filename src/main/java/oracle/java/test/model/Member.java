@@ -1,16 +1,23 @@
 package oracle.java.test.model;
 
 public class Member {
+	private int no;
 	private String kor_name, eng_name, chn_name;
-	private int jumin_nof, jumin_nob;
+	private String jumin_nof, jumin_nob;
 	private String image;
-	private int birth1, birth2, birth3;
+	private String birth1, birth2, birth3;
 	private String sol_flag, sex;
 	private String marry_flag, work_year, payment_type;
 	private String dept, job_type, address;
-	private int phone1, phone2, phone3;
+	private String phone1, phone2, phone3;
 	private String email, tech_lev, liquor;
 	
+	public int getNo() {
+		return no;
+	}
+	public void setNo(int no) {
+		this.no = no;
+	}
 	public String getKor_name() {
 		return kor_name;
 	}
@@ -29,16 +36,16 @@ public class Member {
 	public void setChn_name(String chn_name) {
 		this.chn_name = chn_name;
 	}
-	public int getJumin_nof() {
+	public String getJumin_nof() {
 		return jumin_nof;
 	}
-	public void setJumin_nof(int jumin_nof) {
+	public void setJumin_nof(String jumin_nof) {
 		this.jumin_nof = jumin_nof;
 	}
-	public int getJumin_nob() {
+	public String getJumin_nob() {
 		return jumin_nob;
 	}
-	public void setJumin_nob(int jumin_nob) {
+	public void setJumin_nob(String jumin_nob) {
 		this.jumin_nob = jumin_nob;
 	}
 	public String getImage() {
@@ -47,22 +54,22 @@ public class Member {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	public int getBirth1() {
+	public String getBirth1() {
 		return birth1;
 	}
-	public void setBirth1(int birth1) {
+	public void setBirth1(String birth1) {
 		this.birth1 = birth1;
 	}
-	public int getBirth2() {
+	public String getBirth2() {
 		return birth2;
 	}
-	public void setBirth2(int birth2) {
+	public void setBirth2(String birth2) {
 		this.birth2 = birth2;
 	}
-	public int getBirth3() {
+	public String getBirth3() {
 		return birth3;
 	}
-	public void setBirth3(int birth3) {
+	public void setBirth3(String birth3) {
 		this.birth3 = birth3;
 	}
 	public String getSol_flag() {
@@ -113,22 +120,22 @@ public class Member {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public int getPhone1() {
+	public String getPhone1() {
 		return phone1;
 	}
-	public void setPhone1(int phone1) {
+	public void setPhone1(String phone1) {
 		this.phone1 = phone1;
 	}
-	public int getPhone2() {
+	public String getPhone2() {
 		return phone2;
 	}
-	public void setPhone2(int phone2) {
+	public void setPhone2(String phone2) {
 		this.phone2 = phone2;
 	}
-	public int getPhone3() {
+	public String getPhone3() {
 		return phone3;
 	}
-	public void setPhone3(int phone3) {
+	public void setPhone3(String phone3) {
 		this.phone3 = phone3;
 	}
 	public String getEmail() {
@@ -149,4 +156,16 @@ public class Member {
 	public void setLiquor(String liquor) {
 		this.liquor = liquor;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Member [kor_name=" + kor_name + ", eng_name=" + eng_name + ", chn_name=" + chn_name + ", jumin_nof="
+				+ jumin_nof + ", jumin_nob=" + jumin_nob + ", image=" + image + ", birth1=" + birth1 + ", birth2="
+				+ birth2 + ", birth3=" + birth3 + ", sol_flag=" + sol_flag + ", sex=" + sex + ", marry_flag="
+				+ marry_flag + ", work_year=" + work_year + ", payment_type=" + payment_type + ", dept=" + dept
+				+ ", job_type=" + job_type + ", address=" + address + ", phone1=" + phone1 + ", phone2=" + phone2
+				+ ", phone3=" + phone3 + ", email=" + email + ", tech_lev=" + tech_lev + ", liquor=" + liquor + "]";
+	}
+	
 }

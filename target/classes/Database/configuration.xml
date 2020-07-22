@@ -5,6 +5,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias alias="Member" type="oracle.java.test.model.Member"/>
+		<typeAlias alias="Paging" type="oracle.java.test.model.Paging"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="Database/Member.xml"/>

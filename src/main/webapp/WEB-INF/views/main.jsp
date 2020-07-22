@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -109,7 +110,7 @@
 	              </tr>
 	              <tr align="center" bgcolor="F8F8F8"> 
 	                <td height="26" align="right" bgcolor="F8F8F8" style="padding-right:10"><img src="image/all_icon.gif" width="11" height="11" align="absmiddle"> 
-	                  <a href="#">수정</a> <img src="image/all_icon.gif" width="11" height="11" align="absmiddle"> 
+	                  <a onclick="update()">수정</a> <img src="image/all_icon.gif" width="11" height="11" align="absmiddle"> 
 	                  <a href="#">인사기록카드</a> <img src="image/all_icon.gif" width="11" height="11" align="absmiddle"> 
 	                  <a href="#">경력정보</a> <img src="image/all_icon.gif" width="11" height="11" align="absmiddle"> 
 	                  <a href="#">근무정보</a> </td>
@@ -123,8 +124,8 @@
 					<table width="640" border="0" cellspacing="0" cellpadding="0">
 						<c:forEach items="${mainList }" var="member">
 		                    <tr> 
-		                      <td width="35" height="20" align="center"><input type="checkbox" name="checkbox" value="checkbox"></td>
-		                      <td width="85" align="center">${member.kor_name }</td>
+		                      <td width="35" height="20" align="center"><input type="checkbox" name="checkbox" id="checkbox" value="${member.no }"></td>
+		                      <td width="85" align="center"><a href='content?no=${member.no }&currentPage=${paging.currentPage}'>${member.kor_name }</a></td>
 		                      <td width="153" align="center">${member.jumin_nof }-${member.jumin_nob }</td>
 		                      <td width="91" align="center">${member.sex }</td>
 		                      <td width="91" align="center">${member.tech_lev }</td>
@@ -135,13 +136,13 @@
 	                    <tr> 
 	                    	<td height="35" colspan="7" align="center" style="padding-bottom:3"> 
 	                    		<c:if test="${paging.before eq true }">
-									<a onclick="goBefore(${paging.startPage - 1})">img src="image/pre.gif" width="42" height="15" border="0" align="absmiddle"></a>
+									<a href="main?currentPage=${paging.startPage - 1}"><img src="image/pre.gif" width="42" height="15" border="0" align="absmiddle"></a>
 								</c:if>
 								<c:forEach var="i" begin="${paging.startPage}" end="${paging.endPage}">
-									<a onclick="goPage(${i})" class="paging-num">&nbsp;${i}&nbsp;|</a>
+									<a href="main?currentPage=${i}" class="paging-num">&nbsp;${i}&nbsp;|</a>
 								</c:forEach>
 								<c:if test="${paging.next eq true}">
-									<a onclick="goNext(${paging.endPage + 1})"> <img src="image/next_.gif" width="22" height="15" border="0" align="absmiddle"></a>
+									<a href="main?currentPage=${paging.endPage + 1}"> <img src="image/next_.gif" width="22" height="15" border="0" align="absmiddle"></a>
 								</c:if>
 	                    	</td>
 	                    </tr>
@@ -154,7 +155,7 @@
 	              </tr>
 	              <tr align="center" bgcolor="F8F8F8"> 
 	                <td height="26" align="right" bgcolor="F8F8F8" style="padding-right:10"><img src="image/all_icon.gif" width="11" height="11" align="absmiddle"> 
-	                  <a href="#">수정</a> <img src="image/all_icon.gif" width="11" height="11" align="absmiddle"> 
+	                  <a onclick="del()">삭제</a> <img src="image/all_icon.gif" width="11" height="11" align="absmiddle"> 
 	                  <a href="#">인사기록카드</a> <img src="image/all_icon.gif" width="11" height="11" align="absmiddle"> 
 	                  <a href="#">경력정보</a> <img src="image/all_icon.gif" width="11" height="11" align="absmiddle"> 
 	                  <a href="#">근무정보</a> </td>
@@ -169,5 +170,31 @@
 	</table>
 </div>
 
+	<script type="text/javascript">
+
+		function del() {
+			var checkbox = $('input[id=checkbox]:checked');
+			var tr = checkbox.parent().parent();
+			if(checkbox.length > 1) {
+				alert('하나만 선택해주세요');
+				return;
+			}
+			
+			console.log(checkbox.val());
+			location.href = "delete?no=" + checkbox.val();
+		}
+		
+		function update() {
+			var checkbox = $('input[id=checkbox]:checked');
+			var tr = checkbox.parent().parent();
+			if(checkbox.length > 1) {
+				alert('하나만 선택해주세요');
+				return;
+			}
+			console.log(checkbox.val());
+			location.href = "updateForm?no=" + checkbox.val();
+		}
+	
+	</script>
 </body>
 </html>

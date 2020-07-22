@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import oracle.java.test.dao.MainDao;
 import oracle.java.test.model.Member;
+import oracle.java.test.model.Paging;
 
 @Service
 public class MainServiceImpl implements MainService {
@@ -15,12 +16,35 @@ public class MainServiceImpl implements MainService {
 	private MainDao mainDao;
 
 	@Override
-	public List<Member> mainList() {
-		return mainDao.mainList();
+	public List<Member> mainList(Paging paging) {
+		return mainDao.mainList(paging);
 	}
 
 	@Override
 	public int insert(Member member) {
 		return mainDao.insert(member);
 	}
+
+	@Override
+	public void delete(int no) {
+		mainDao.delete(no);
+	}
+
+	@Override
+	public Member memberinfo(int no) {
+		return mainDao.memberinfo(no);
+	}
+
+	@Override
+	public void update(Member member) {
+		mainDao.update(member);	
+	}
+
+	@Override
+	public int total(Paging paging) {
+		return mainDao.total(paging);
+	}
+
+
+	
 }

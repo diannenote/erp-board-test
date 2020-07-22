@@ -7,14 +7,15 @@
 <title>Insert title here</title>
 </head>
 <body topmargin="0" leftmargin="0">
-	<form action="insert" method="post">
+	<form action="update" method="post">
+		<input type="hidden" name="no" value="${member.no }">
 		<table width="640" border="0" cellspacing="0" cellpadding="0">
 		  <tr> 
 		    <td width="640">&nbsp;</td>
 		  </tr>
 		  <tr> 
 		    <td height="25"><img src="image/icon.gif" width="9" height="9" align="absmiddle"> 
-		      <strong>사원 기본 정보 등록</strong></td>
+		      <strong>사원 기본 정보 수정</strong></td>
 		  </tr>
 		  <tr> 
 		    <td><table width="640" border="0" cellspacing="0" cellpadding="0">
@@ -66,7 +67,7 @@
 		                            <tr>
 		                              <td width="107" height="26" align="right"><strong>한글이름 :</strong>&nbsp;</td>
 		                              <td width="310" height="26">
-		                                <input type="text" name="kor_name" required="required">
+		                                <input type="text" name="kor_name" required="required" value=${member.kor_name }>
 		                              </td>
 		                            </tr>
 		                            <tr>
@@ -248,7 +249,7 @@
 		        <tr>
 		          <td height="3" align="center"><table width="107" border="0" cellpadding="1" cellspacing="1">
 		            <tr>
-		              <td width="49"><input type="image" src="image/bt_add.gif" width="49" height="18" name="submit" value="submit"></td>
+		              <td width="49"><input type="image" src="image/bt_remove.gif" width="49" height="18" name="submit" value="submit"></td>
 		              <td width="51"><img src="image/bt_cancel.gif" width="49" height="18" onclick="history.back()"></td>
 		            </tr>
 		          </table>            </td>
