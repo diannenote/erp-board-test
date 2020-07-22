@@ -10,14 +10,18 @@ public class Paging {
 	private boolean before;
 	private boolean next;
 	
-	/*
-	 * private String keyword;
-	 * 
-	 * 
-	 * public String getKeyword() { return keyword; }
-	 * 
-	 * public void setKeyword(String keyword) { this.keyword = keyword; }
-	 */
+	private String type;
+	private String keyword;
+	
+	
+	public String getType() { return type; }
+
+	public void setType(String type) { this.type = type; }
+
+	public String getKeyword() { return keyword; }
+	 
+	public void setKeyword(String keyword) { this.keyword = keyword; }
+	 
 	public boolean isBefore() {
 		if(this.getStartPage() > PAGE_BLOCK) return true;
 		return false;

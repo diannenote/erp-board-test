@@ -26,7 +26,7 @@
 			  <table width="150" border="0" cellspacing="0" cellpadding="0">
 	              <tr> 
 	                <td width="17" height="20"><img src="image/left_icon.gif" width="11" height="11" align="absmiddle"></td>
-	                <td width="133"><a href="#">기본정보</a></td>
+	                <td width="133"><a href="main">기본정보</a></td>
 	              </tr>
 	              <tr> 
 	                <td height="20">&nbsp;</td>
@@ -99,9 +99,18 @@
 	  <tr> 
 	    <td><table width="640" border="0" cellspacing="0" cellpadding="0">
 	        <tr> 
-	          <td height="30" align="right"><select name="select" class="INPUT">
-	              <option selected>::::: 전체 :::::</option>
-	            </select> <input name="textfield" type="text" class="INPUT"> <a href="#"><img src="image/search.gif" width="49" height="18" border="0" align="absmiddle"></a></td>
+	          <td height="30" align="right">
+	        	 <form action="main" id="keyword">
+		          	 <select name="type" class="INPUT">
+			              <option selected value="all">::::: 전체 :::::</option>
+			              <option value="name">이름 </option>
+			              <option value="sex">성별 </option>
+			              <option value="tech_lev"> 기술등급 </option>
+		           	 </select> 
+		           	 <input name="keyword" type="text" class="INPUT">
+		           	 <img src="image/search.gif" width="49" height="18" border="0" align="absmiddle" onclick="submit();">
+		          </form> 	 
+	           </td>
 	        </tr>
 	        <tr> 
 	          <td><table width="640" border="0" cellspacing="0" cellpadding="0">
@@ -139,7 +148,7 @@
 									<a href="main?currentPage=${paging.startPage - 1}"><img src="image/pre.gif" width="42" height="15" border="0" align="absmiddle"></a>
 								</c:if>
 								<c:forEach var="i" begin="${paging.startPage}" end="${paging.endPage}">
-									<a href="main?currentPage=${i}" class="paging-num">&nbsp;${i}&nbsp;|</a>
+									<a href="main?currentPage=${i}" class="paging-num">&nbsp;${i}&nbsp;</a>
 								</c:forEach>
 								<c:if test="${paging.next eq true}">
 									<a href="main?currentPage=${paging.endPage + 1}"> <img src="image/next_.gif" width="22" height="15" border="0" align="absmiddle"></a>
@@ -193,6 +202,12 @@
 			}
 			console.log(checkbox.val());
 			location.href = "updateForm?no=" + checkbox.val();
+		}
+		
+		function submit() {
+			console.log('?????');
+			var formTag = document.getElementById("keyword");
+			formTag.submit();
 		}
 	
 	</script>

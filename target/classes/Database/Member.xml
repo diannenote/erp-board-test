@@ -6,7 +6,23 @@
 	<select id="mainList" parameterType="Paging"  resultType="Member">
 		select * from  
             (select rownum rnum, a.* 
-            from (select * from member order by no desc) a)
+            from (select * from member 
+            	<if test="keyword != null and !keyword.equals('') and type.equals('all')">
+					where kor_name like '%'||#{keyword}||'%' or eng_name like '%'||#{keyword}||'%'
+						or chn_name like '%'||#{keyword}||'%' or sex like '%'||#{keyword}||'%'
+						or tech_lev like '%'||#{keyword}||'%' 
+			    </if>
+			    <if test="keyword != null and !keyword.equals('') and type.equals('name')">
+					where kor_name like '%'||#{keyword}||'%' or eng_name like '%'||#{keyword}||'%'
+						or chn_name like '%'||#{keyword}||'%'
+			    </if> 
+			    <if test="keyword != null and !keyword.equals('') and type.equals('sex')">
+					where sex like '%'||#{keyword}||'%'
+			    </if> 
+			    <if test="keyword != null and !keyword.equals('') and type.equals('tech_lev')">
+					where tech_lev like '%'||#{keyword}||'%' 
+			    </if>   
+            	order by no desc) a)
             where 
                 rnum between #{start} and #{end}
 	</select>
@@ -34,6 +50,22 @@
 	
 	<select id="total" parameterType="Paging" resultType="int">
 		select count(*) from member
+		
+			<if test="keyword != null and !keyword.equals('') and type.equals('all')">
+				where kor_name like '%'||#{keyword}||'%' or eng_name like '%'||#{keyword}||'%'
+					or chn_name like '%'||#{keyword}||'%' or sex like '%'||#{keyword}||'%'
+					or tech_lev like '%'||#{keyword}||'%'
+			</if>
+			<if test="keyword != null and !keyword.equals('') and type.equals('name')">
+					where kor_name like '%'||#{keyword}||'%' or eng_name like '%'||#{keyword}||'%'
+						or chn_name like '%'||#{keyword}||'%'
+			    </if> 
+			    <if test="keyword != null and !keyword.equals('') and type.equals('sex')">
+					where sex like '%'||#{keyword}||'%'
+			    </if> 
+			    <if test="keyword != null and !keyword.equals('') and type.equals('tech_lev')">
+					where tech_lev like '%'||#{keyword}||'%' 
+			    </if>   
 	</select>
 </mapper>
   
