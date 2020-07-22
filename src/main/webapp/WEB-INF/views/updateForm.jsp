@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="upload" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,6 +42,7 @@
 				
 				var reader = new FileReader();
 				reader.onload = function(e) {
+					$("#preImg").remove();
 					$("#img").attr("src", e.target.result);
 				}
 				reader.readAsDataURL(f);
@@ -49,7 +51,7 @@
 	</script>
 </head>
 <body topmargin="0" leftmargin="0">
-	<form action="update" method="post">
+	<form action="update" method="post"  enctype="multipart/form-data">
 		<input type="hidden" name="no" value="${member.no }">
 		<table width="640" border="0" cellspacing="0" cellpadding="0">
 		  <tr> 
@@ -97,7 +99,13 @@
 		                            <tr>
 		                              <td height="112" bgcolor="#CCCCCC"><table width="100" border="0" cellspacing="1" cellpadding="0">
 		                                  <tr>
-		                                    <td height="110" bgcolor="#FFFFFF">&nbsp;<div class="img_wrap"><img id="img"><!-- 사진들어갈곳 --></div></td>
+		                                    <td height="110" bgcolor="#FFFFFF">
+		                                    	<div class="img_wrap">
+		                                    		<!-- 사진들어갈곳 -->
+		                                    		<img id="img" />
+		                                    		<img id="preImg" src="<upload:url value='/upload/${member.image }' />" />
+		                                    	</div>
+		                                    </td>
 		                                  </tr>
 		                              </table></td>
 		                            </tr>
@@ -145,10 +153,10 @@
 		                <td bgcolor="#CCCCCC"><table width="600" border="0" cellspacing="1" cellpadding="0">
 		                    <tr> 
 		                      <td bgcolor="#E4EBF1"><table width="526" border="0" cellspacing="1" cellpadding="1">
-		                          <tr class="jumbotron"> 
+		                          <tr> 
 		                            <td width="102" align="right"><strong>사진파일명 :&nbsp;</strong></td>
 		                            <td width="268">
-		                            <!--사진업로드-->
+		                            <!--사진업로드--> ${member.image }
 		                            	<input name="file" type="file" id="input_img">
 		                            <td width="400"></td>
 		                          </tr>

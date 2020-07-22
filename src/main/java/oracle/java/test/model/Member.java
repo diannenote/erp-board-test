@@ -1,6 +1,5 @@
 package oracle.java.test.model;
 
-import org.springframework.web.multipart.MultipartFile;
 
 public class Member {
 	private int no;
@@ -13,11 +12,11 @@ public class Member {
 	private String dept, job_type, address;
 	private String phone1, phone2, phone3;
 	private String email, tech_lev, liquor;
-	private MultipartFile file;
 	
 	public int getNo() {
 		return no;
 	}
+
 
 
 	public void setNo(int no) {
@@ -25,9 +24,11 @@ public class Member {
 	}
 
 
+
 	public String getKor_name() {
 		return kor_name;
 	}
+
 
 
 	public void setKor_name(String kor_name) {
@@ -35,9 +36,11 @@ public class Member {
 	}
 
 
+
 	public String getEng_name() {
 		return eng_name;
 	}
+
 
 
 	public void setEng_name(String eng_name) {
@@ -45,9 +48,11 @@ public class Member {
 	}
 
 
+
 	public String getChn_name() {
 		return chn_name;
 	}
+
 
 
 	public void setChn_name(String chn_name) {
@@ -55,9 +60,11 @@ public class Member {
 	}
 
 
+
 	public String getJumin_nof() {
 		return jumin_nof;
 	}
+
 
 
 	public void setJumin_nof(String jumin_nof) {
@@ -65,9 +72,11 @@ public class Member {
 	}
 
 
+
 	public String getJumin_nob() {
 		return jumin_nob;
 	}
+
 
 
 	public void setJumin_nob(String jumin_nob) {
@@ -75,9 +84,11 @@ public class Member {
 	}
 
 
+
 	public String getImage() {
 		return image;
 	}
+
 
 
 	public void setImage(String image) {
@@ -85,9 +96,11 @@ public class Member {
 	}
 
 
+
 	public String getBirth1() {
 		return birth1;
 	}
+
 
 
 	public void setBirth1(String birth1) {
@@ -95,9 +108,11 @@ public class Member {
 	}
 
 
+
 	public String getBirth2() {
 		return birth2;
 	}
+
 
 
 	public void setBirth2(String birth2) {
@@ -105,9 +120,11 @@ public class Member {
 	}
 
 
+
 	public String getBirth3() {
 		return birth3;
 	}
+
 
 
 	public void setBirth3(String birth3) {
@@ -115,9 +132,11 @@ public class Member {
 	}
 
 
+
 	public String getSol_flag() {
 		return sol_flag;
 	}
+
 
 
 	public void setSol_flag(String sol_flag) {
@@ -125,9 +144,11 @@ public class Member {
 	}
 
 
+
 	public String getSex() {
 		return sex;
 	}
+
 
 
 	public void setSex(String sex) {
@@ -135,9 +156,11 @@ public class Member {
 	}
 
 
+
 	public String getMarry_flag() {
 		return marry_flag;
 	}
+
 
 
 	public void setMarry_flag(String marry_flag) {
@@ -145,9 +168,11 @@ public class Member {
 	}
 
 
+
 	public String getWork_year() {
 		return work_year;
 	}
+
 
 
 	public void setWork_year(String work_year) {
@@ -155,9 +180,11 @@ public class Member {
 	}
 
 
+
 	public String getPayment_type() {
 		return payment_type;
 	}
+
 
 
 	public void setPayment_type(String payment_type) {
@@ -165,9 +192,11 @@ public class Member {
 	}
 
 
+
 	public String getDept() {
 		return dept;
 	}
+
 
 
 	public void setDept(String dept) {
@@ -175,9 +204,11 @@ public class Member {
 	}
 
 
+
 	public String getJob_type() {
 		return job_type;
 	}
+
 
 
 	public void setJob_type(String job_type) {
@@ -185,9 +216,11 @@ public class Member {
 	}
 
 
+
 	public String getAddress() {
 		return address;
 	}
+
 
 
 	public void setAddress(String address) {
@@ -195,9 +228,11 @@ public class Member {
 	}
 
 
+
 	public String getPhone1() {
 		return phone1;
 	}
+
 
 
 	public void setPhone1(String phone1) {
@@ -205,9 +240,11 @@ public class Member {
 	}
 
 
+
 	public String getPhone2() {
 		return phone2;
 	}
+
 
 
 	public void setPhone2(String phone2) {
@@ -215,9 +252,11 @@ public class Member {
 	}
 
 
+
 	public String getPhone3() {
 		return phone3;
 	}
+
 
 
 	public void setPhone3(String phone3) {
@@ -225,9 +264,11 @@ public class Member {
 	}
 
 
+
 	public String getEmail() {
 		return email;
 	}
+
 
 
 	public void setEmail(String email) {
@@ -235,9 +276,11 @@ public class Member {
 	}
 
 
+
 	public String getTech_lev() {
 		return tech_lev;
 	}
+
 
 
 	public void setTech_lev(String tech_lev) {
@@ -245,24 +288,17 @@ public class Member {
 	}
 
 
+
 	public String getLiquor() {
 		return liquor;
 	}
+
 
 
 	public void setLiquor(String liquor) {
 		this.liquor = liquor;
 	}
 
-
-	public MultipartFile getFile() {
-		return file;
-	}
-
-
-	public void setFile(MultipartFile file) {
-		this.file = file;
-	}
 
 
 	@Override
