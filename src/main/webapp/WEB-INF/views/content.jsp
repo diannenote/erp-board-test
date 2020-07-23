@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="upload" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +10,44 @@
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
+<style type="text/css">
+		.img_wrap {
+			width: 100px;
+		}
+		.img_wrap img {
+			max-width: 100%;
+		}
+	
+	</style>
+	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript">
+	
+		var sel_files;
+		
+		$(document).ready(function() {
+			$("#input_img").on("change", handleImgFileSelect);
+		});
+		
+		function handleImgFileSelect(e) {
+			var files = e.target.files;
+			var filesArr = Array.prototype.slice.call(files);
+			
+			filesArr.forEach(function(f) {
+				if(!f.type.match("image.*")) {
+					alert("확장자는 이미지 확장자만 가능합니다.");
+					return;
+				}
+				
+				sel_file= f;
+				
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					$("#img").attr("src", e.target.result);
+				}
+				reader.readAsDataURL(f);
+			});
+		}
+	</script>
 </head>
 <body topmargin="0" leftmargin="0">
 	<form action="update" method="post">
@@ -58,7 +97,12 @@
 		                            <tr>
 		                              <td height="112" bgcolor="#CCCCCC"><table width="100" border="0" cellspacing="1" cellpadding="0">
 		                                  <tr>
-		                                    <td height="110" bgcolor="#FFFFFF">&nbsp;</td>
+		                                    <td height="110" bgcolor="#FFFFFF">
+		                                    	<div class="img_wrap">
+		                                    		<!-- 사진들어갈곳 -->
+		                                    		<img src="<upload:url value='/upload/${member.image }' />" />
+		                                    	</div>
+		                                    </td>
 		                                  </tr>
 		                              </table></td>
 		                            </tr>
