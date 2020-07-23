@@ -143,7 +143,7 @@
 						</tr>
 						<c:forEach items="${mainList }" var="member">
 		                    <tr> 
-		                      <td width="35" height="20" align="center"><input type="checkbox" name="checkbox" class="checkbox" value="${member.no }"></td>
+		                      <td width="35" height="20" align="center"><input type="checkbox" name="checkbox" class="checkbox" id="${member.no }"></td>
 		                      <td width="85" align="center"><a href='content?no=${member.no }&currentPage=${paging.currentPage}'>${member.kor_name }</a></td>
 		                      <td width="153" align="center">${member.jumin_nof }-${member.jumin_nob }</td>
 		                      <td width="91" align="center">${member.sex }</td>
@@ -165,7 +165,7 @@
 									<a href="main?currentPage=${i}" class="paging-num">&nbsp;${i}&nbsp;</a>
 								</c:forEach>
 								<c:if test="${paging.next eq true}">
-									<a href="main?currentPage=${paging.endPage + 1}"> 
+									<a href="main?currentPage=${paging.endPage + 1}"> </a>
 									<img src="image/next.gif" width="42" height="15" border="0" align="absmiddle">
 								</c:if>
 								<a href="main?currentPage=${paging.totalPage }">
@@ -201,9 +201,30 @@
 
 		function del() {
 			var checkbox = $('input[class=checkbox]:checked');
+			var arr = new Array();
 			result = confirm('삭제 하시겠습니까?');
 			if(result == true) {
-				location.href = "delete?no=" + checkbox.val();
+				$('input[name="checkbox":checked]').each(function() {
+					arr.push($(this).attr('id'));
+				});
+				if(checkbox.length == 0) {
+					alert("체크된 항목이 없습니다.");
+				} else {
+					$.ajax = {
+			                type: "POST",
+			                url: "delete" ,
+			                data: "ARR=" + arr + "&CNT=" + checkbox.length,
+			                dataType:"json",
+			                success: function(jdata){
+			                    if(jdata != 1) {
+			                        alert("삭제 오류");
+			                    }
+			                    else{
+			                        alert("삭제 성공");
+			                    }
+			                },
+			                error: function(){alert("서버통신 오류");}
+				};
 			} else return false;
 			
 		}

@@ -3,6 +3,7 @@ package oracle.java.test.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -18,6 +19,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -98,14 +100,27 @@ public class MainController {
 	}
 
 	@RequestMapping("delete")
-	public String delete(int no, Paging paging, Model model) {
+	@ResponseBody
+	public int delete(Map<String,Object> map) {
 		System.out.println("delete controller");
-		System.out.println(no);
-
-		mainService.delete(no);
-		model.addAttribute("paging", paging);
-		return "redirect:main";
-	}
+		int result = 1;
+		try {
+            int cnt = Integer.parseInt((String) map.get("CNT"));
+            String arr = (String)map.get("ARR");
+            String [] strArray = arr.split(",");
+            for(int i=0; i<cnt; i++) {
+                int temp = Integer.parseInt((String)strArray[i]);
+                map.put("ARR", temp);
+                mainService.delete("delete", map);
+               
+            }
+        } catch (Exception e) {
+            e.getMessage();
+            result=0;
+        }
+        return result;
+    }
+	
 
 	@RequestMapping("updateForm")
 	public String updateForm(int no, Model model, Paging paging) {

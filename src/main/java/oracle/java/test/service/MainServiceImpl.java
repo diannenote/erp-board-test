@@ -1,6 +1,7 @@
 package oracle.java.test.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,11 +27,6 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public void delete(int no) {
-		mainDao.delete(no);
-	}
-
-	@Override
 	public Member memberinfo(int no) {
 		return mainDao.memberinfo(no);
 	}
@@ -43,6 +39,12 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public int total(Paging paging) {
 		return mainDao.total(paging);
+	}
+
+	@Override
+	public void delete(String string, Map<String, Object> map) {
+		return mainDao.delete(map);
+		
 	}
 
 
