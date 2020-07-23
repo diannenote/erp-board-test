@@ -143,7 +143,7 @@
 						</tr>
 						<c:forEach items="${mainList }" var="member">
 		                    <tr> 
-		                      <td width="35" height="20" align="center"><input type="checkbox" name="checkbox" class="checkbox" id="${member.no }"></td>
+		                      <td width="35" height="20" align="center"><input type="checkbox" name="checkbox" class="checkbox" value="${member.no }"></td>
 		                      <td width="85" align="center"><a href='content?no=${member.no }&currentPage=${paging.currentPage}'>${member.kor_name }</a></td>
 		                      <td width="153" align="center">${member.jumin_nof }-${member.jumin_nob }</td>
 		                      <td width="91" align="center">${member.sex }</td>
@@ -199,44 +199,43 @@
 
 	<script type="text/javascript">
 
-		function del() {
+		 function del() {
 			var checkbox = $('input[class=checkbox]:checked');
 			var arr = new Array();
-			result = confirm('삭제 하시겠습니까?');
-			if(result == true) {
-				$('input[name="checkbox":checked]').each(function() {
-					arr.push($(this).attr('id'));
+			var result = confirm('삭제 하시겠습니까?');
+			if(result) {
+				$('input[name="checkbox"]:checked').each(function(i) {
+					arr.push(checkbox[i].value);
 				});
+				
 				if(checkbox.length == 0) {
 					alert("체크된 항목이 없습니다.");
 				} else {
-					$.ajax = {
-			                type: "POST",
-			                url: "delete" ,
-			                data: "ARR=" + arr + "&CNT=" + checkbox.length,
-			                dataType:"json",
-			                success: function(jdata){
-			                    if(jdata != 1) {
-			                        alert("삭제 오류");
-			                    }
-			                    else{
-			                        alert("삭제 성공");
-			                    }
-			                },
-			                error: function(){alert("서버통신 오류");}
-				};
-			} else return false;
-			
-		}
+					$.ajax({
+		                type: "POST",
+		                url: "delete" ,
+		                data: { arr : arr.join(",")},
+		                dataType:"json",
+		                success: function(jdata){
+		                    if(jdata) {
+		                    	alert("삭제 성공");
+		                        location.reload();
+		                    } else {
+		                    	alert("삭제 오류");
+		                    }
+		                },
+		                error: function(){alert("서버통신 오류");}
+					});
+				}
+			} 
+		 }
 		
 		function update() {
 			var checkbox = $('input[class=checkbox]:checked');
-			var tr = checkbox.parent().parent();
 			if(checkbox.length > 1) {
 				alert('하나만 선택해주세요');
 				return;
 			}
-			console.log(checkbox.val());
 			location.href = "updateForm?no=" + checkbox.val();
 		}
 		

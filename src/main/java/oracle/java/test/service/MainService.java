@@ -13,6 +13,6 @@ public interface MainService {
 	Member memberinfo(int no);
 	void update(Member member);
 	int total(Paging paging);
-	void delete(String string, Map<String, Object> map);
+	void delete(String[] strArray);
 	
 }

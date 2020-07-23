@@ -33,8 +33,12 @@
                 #{phone1}, #{phone2}, #{phone3}, #{email}, #{tech_lev}, #{liquor})
 	</insert>
 	
-	<delete id="delete" parameterType="int">
-		delete from member where no = #{no}
+	<delete id="delete" parameterType="String">
+		delete from member where no in (
+			<foreach collection="array" item="item" separator=",">
+				#{item}
+			</foreach>
+			)
 	</delete>
 	
 	<select id="memberinfo" parameterType="int" resultType="Member">
@@ -42,7 +46,10 @@
 	</select>
 	
 	<update id="update" parameterType="Member">
-		update member set kor_name=#{kor_name}, eng_name=#{eng_name}, chn_name=#{chn_name}, jumin_nof=#{jumin_nof}, jumin_nob=#{jumin_nob}, image=#{image},
+		update member set kor_name=#{kor_name}, eng_name=#{eng_name}, chn_name=#{chn_name}, jumin_nof=#{jumin_nof}, jumin_nob=#{jumin_nob}, 
+				<if test="!image.equals('')">
+					image=#{image},
+				</if>
                 birth1=#{birth1}, birth2=#{birth2}, birth3=#{birth3}, sol_flag=#{sol_flag}, sex=#{sex}, marry_flag=#{marry_flag}, work_year=#{work_year}, payment_type=#{payment_type}, dept=#{dept}, job_type=#{job_type}, address=#{address},
                 phone1=#{phone1}, phone2=#{phone2}, phone3=#{phone3}, email=#{email}, tech_lev=#{tech_lev}, liquor=#{liquor}
         where no=#{no}

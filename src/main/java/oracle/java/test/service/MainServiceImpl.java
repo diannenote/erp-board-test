@@ -42,9 +42,9 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public void delete(String string, Map<String, Object> map) {
-		return mainDao.delete(map);
-		
+	public void delete(String[] strArray) {
+		System.out.println(strArray);
+		mainDao.delete(strArray);
 	}
 
 

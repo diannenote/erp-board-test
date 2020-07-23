@@ -26,11 +26,6 @@ public class MainDaoImpl implements MainDao {
 	}
 
 	@Override
-	public void delete(int no) {
-		session.delete("delete", no);
-	}
-
-	@Override
 	public Member memberinfo(int no) {
 		return session.selectOne("memberinfo", no);
 	}
@@ -43,6 +38,12 @@ public class MainDaoImpl implements MainDao {
 	@Override
 	public int total(Paging paging) {
 		return session.selectOne("total", paging);
+	}
+
+	@Override
+	public void delete(String[] strArray) {
+		System.out.println(strArray);
+		session.delete("delete", strArray);		
 	}
 	
 }

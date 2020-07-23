@@ -9,7 +9,7 @@ public interface MainDao {
 
 	List<Member> mainList(Paging paging);
 	int insert(Member member);
-	void delete(int no);
+	void delete(String[] strArray);
 	Member memberinfo(int no);
 	void update(Member member);
 	int total(Paging paging);

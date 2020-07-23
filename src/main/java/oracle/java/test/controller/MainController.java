@@ -101,21 +101,16 @@ public class MainController {
 
 	@RequestMapping("delete")
 	@ResponseBody
-	public int delete(Map<String,Object> map) {
+	public int delete(String arr) {
 		System.out.println("delete controller");
 		int result = 1;
 		try {
-            int cnt = Integer.parseInt((String) map.get("CNT"));
-            String arr = (String)map.get("ARR");
+            System.out.println(arr);
             String [] strArray = arr.split(",");
-            for(int i=0; i<cnt; i++) {
-                int temp = Integer.parseInt((String)strArray[i]);
-                map.put("ARR", temp);
-                mainService.delete("delete", map);
-               
-            }
+            mainService.delete(strArray);
+            
         } catch (Exception e) {
-            e.getMessage();
+            e.printStackTrace();
             result=0;
         }
         return result;
@@ -143,10 +138,12 @@ public class MainController {
 		 logger.info("originalName: " + file.getOriginalFilename());
 		 logger.info("size: " + file.getSize());
 		 logger.info("contextType: " + file.getContentType());
-		 String savedNameThum = null;
+		 String savedNameThum = "";
 		 try {
-		 	savedNameThum = uploadFile(file.getOriginalFilename(), file.getBytes(), uploadPath);
-		 	System.out.println("savedNameThum -> " + savedNameThum);
+			 if(!file.getOriginalFilename().equals("")) {
+				 savedNameThum = uploadFile(file.getOriginalFilename(), file.getBytes(), uploadPath);
+				 System.out.println("savedNameThum -> " + savedNameThum);
+			 }
 		 } catch (Exception e1) {
 		 	e1.printStackTrace();
 		 }

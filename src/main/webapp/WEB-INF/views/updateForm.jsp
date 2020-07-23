@@ -33,14 +33,16 @@
 			var filesArr = Array.prototype.slice.call(files);
 			
 			filesArr.forEach(function(f) {
-				if(!f.type.match("image.*")) {
-					alert("확장자는 이미지 확장자만 가능합니다.");
+				if(!f.type.match(".jpg*")) {
+					alert("JPG파일만 등록 가능합니다.");
+					$('#input_img').val('');
 					return;
 				}
 				
 				sel_file= f;
 				
 				var reader = new FileReader();
+				
 				reader.onload = function(e) {
 					$("#preImg").remove();
 					$("#img").attr("src", e.target.result);
@@ -157,7 +159,7 @@
 		                            <td width="102" align="right"><strong>사진파일명 :&nbsp;</strong></td>
 		                            <td width="268">
 		                            <!--사진업로드--> ${member.image }
-		                            	<input name="file" type="file" id="input_img">
+		                            	<input name="file" type="file" id="input_img" accept="image/jpg">이거
 		                            <td width="400"></td>
 		                          </tr>
 		                        </table></td>
