@@ -132,9 +132,18 @@
 	                <td>
 					<!-------------------------  리스트 ------------------------------>
 					<table width="640" border="0" cellspacing="0" cellpadding="0">
+						<tr al>
+							<td width="35" height="20" align="center"><input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();" ></td>
+							<td width="85" align="center">이름</td>
+							<td width="153" align="center">주민번호</td>
+							<td width="91" align="center">성별</td>
+							<td width="91" align="center">기술등급</td>
+							<td width="91" align="center">상태</td>
+							<td width="94" align="center">근무</td>
+						</tr>
 						<c:forEach items="${mainList }" var="member">
 		                    <tr> 
-		                      <td width="35" height="20" align="center"><input type="checkbox" name="checkbox" id="checkbox" value="${member.no }"></td>
+		                      <td width="35" height="20" align="center"><input type="checkbox" name="checkbox" class="checkbox" value="${member.no }"></td>
 		                      <td width="85" align="center"><a href='content?no=${member.no }&currentPage=${paging.currentPage}'>${member.kor_name }</a></td>
 		                      <td width="153" align="center">${member.jumin_nof }-${member.jumin_nob }</td>
 		                      <td width="91" align="center">${member.sex }</td>
@@ -145,15 +154,23 @@
 		                  </c:forEach>  
 	                    <tr> 
 	                    	<td height="35" colspan="7" align="center" style="padding-bottom:3"> 
+								<a href="main?currentPage=1">
+									<img src="image/prev.gif" width="22" height="15" border="0" align="absmiddle">
+								</a>
 	                    		<c:if test="${paging.before eq true }">
-									<a href="main?currentPage=${paging.startPage - 1}"><img src="image/pre.gif" width="42" height="15" border="0" align="absmiddle"></a>
+									<a href="main?currentPage=${paging.startPage - 1}">
+									<img src="image/pre.gif" width="42" height="15" border="0" align="absmiddle"></a>
 								</c:if>
 								<c:forEach var="i" begin="${paging.startPage}" end="${paging.endPage}">
 									<a href="main?currentPage=${i}" class="paging-num">&nbsp;${i}&nbsp;</a>
 								</c:forEach>
 								<c:if test="${paging.next eq true}">
-									<a href="main?currentPage=${paging.endPage + 1}"> <img src="image/next_.gif" width="22" height="15" border="0" align="absmiddle"></a>
+									<a href="main?currentPage=${paging.endPage + 1}"> 
+									<img src="image/next.gif" width="42" height="15" border="0" align="absmiddle">
 								</c:if>
+								<a href="main?currentPage=${paging.totalPage }">
+									<img src="image/next_.gif" width="22" height="15" border="0" align="absmiddle"></a>
+								</a>
 	                    	</td>
 	                    </tr>
 	                  </table>
@@ -183,19 +200,16 @@
 	<script type="text/javascript">
 
 		function del() {
-			var checkbox = $('input[id=checkbox]:checked');
-			var tr = checkbox.parent().parent();
-			if(checkbox.length > 1) {
-				alert('하나만 선택해주세요');
-				return;
-			}
+			var checkbox = $('input[class=checkbox]:checked');
+			result = confirm('삭제 하시겠습니까?');
+			if(result == true) {
+				location.href = "delete?no=" + checkbox.val();
+			} else return false;
 			
-			console.log(checkbox.val());
-			location.href = "delete?no=" + checkbox.val();
 		}
 		
 		function update() {
-			var checkbox = $('input[id=checkbox]:checked');
+			var checkbox = $('input[class=checkbox]:checked');
 			var tr = checkbox.parent().parent();
 			if(checkbox.length > 1) {
 				alert('하나만 선택해주세요');
@@ -208,6 +222,14 @@
 		function submit() {
 			var formTag = document.getElementById("keyword");
 			formTag.submit();
+		}
+		
+		function checkAll() {
+			if( $('#th_checkAll').is(':checked', true) ){
+				$('input[name=checkbox]').prop('checked', true);
+			} else {
+				$('input[name=checkbox]').prop('checked', false);
+			}
 		}
 	
 	</script>

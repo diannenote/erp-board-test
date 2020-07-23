@@ -51,7 +51,7 @@
 	</script>
 </head>
 <body topmargin="0" leftmargin="0">
-	<form action="update" method="post"  enctype="multipart/form-data">
+	<form action="update" method="post"  enctype="multipart/form-data" onsubmit="return confirm('수정하시겠습니까?')">
 		<input type="hidden" name="no" value="${member.no }">
 		<table width="640" border="0" cellspacing="0" cellpadding="0">
 		  <tr> 

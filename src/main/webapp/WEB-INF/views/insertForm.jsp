@@ -49,7 +49,7 @@
 	</script>
 </head>
 <body topmargin="0" leftmargin="0">
-	<form action="insert" method="post" enctype="multipart/form-data">
+	<form action="insert" method="post" enctype="multipart/form-data" onsubmit="return confirm('등록하시겠습니까?')">
 		<table width="640" border="0" cellspacing="0" cellpadding="0">
 		  <tr> 
 		    <td width="640">&nbsp;</td>
