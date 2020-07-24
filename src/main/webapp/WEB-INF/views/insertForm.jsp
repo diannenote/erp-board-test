@@ -132,10 +132,28 @@
 			}
 		}
 		
+		function check() {
+			var str = document.insert.jumin_nof.value.length;
+		     if(str == 6) {
+		       document.insert.jumin_nob.focus();
+		     }
+		}
+		
+		function inputbirth() {
+		    var temp1,temp2,temp3;
+		        temp1=document.insert.jumin_nof.value.substring(0,2);
+		        temp2=document.insert.jumin_nof.value.substring(2,4);
+		        temp3=document.insert.jumin_nof.value.substring(4,6);
+		        if( temp1 < 30 ){ document.jumin.birth1.value="20"+temp1; }
+		            else { document.insert.birth1.value="19"+temp1; }
+		                document.insert.birth2.value=temp2;
+		                document.insert.birth3.value=temp3;
+		}
+		
 	</script>
 </head>
 <body topmargin="0" leftmargin="0">
-	<form action="insert" method="post" enctype="multipart/form-data" onsubmit="return validate();">
+	<form name="insert" action="insert" method="post" enctype="multipart/form-data" onsubmit="return validate();">
 		<table width="640" border="0" cellspacing="0" cellpadding="0">
 		  <tr> 
 		    <td width="640">&nbsp;</td>
@@ -210,7 +228,8 @@
 		                            <tr>
 		                              <td height="26" align="right"><strong>주민등록번호 :</strong>&nbsp;</td>
 		                              <td height="26">
-		                              <input name="jumin_nof" type="text" size="15" required="required" id="jumin1">
+		                              <input name="jumin_nof" type="text" size="15" required="required" id="jumin1" 
+		                              	onKeyUp="check();" onChange="inputbirth()">
 								      	-
 								      <input name="jumin_nob" type="text" size="15" required="required" id="jumin2"></td>
 		                            </tr>
