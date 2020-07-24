@@ -20,9 +20,7 @@
 	</style>
 	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script type="text/javascript">
-	
 		var sel_files;
-		
 		$(document).ready(function() {
 			$("#input_img").on("change", handleImgFileSelect);
 		});
@@ -32,13 +30,12 @@
 			var filesArr = Array.prototype.slice.call(files);
 			
 			filesArr.forEach(function(f) {
-				if(!f.type.match("image.*")) {
+				if(!f.type.match(".jpg*")) {
 					alert("확장자는 이미지 확장자만 가능합니다.");
 					return;
 				}
 				
 				sel_file= f;
-				
 				var reader = new FileReader();
 				reader.onload = function(e) {
 					$("#img").attr("src", e.target.result);
@@ -46,10 +43,99 @@
 				reader.readAsDataURL(f);
 			});
 		}
+		
+		function validate() {
+			var regKor = /^[가-힣]+$/; 
+			var regEng =  /^[a-zA-Z]+$/;
+			var fegHanm = /^[\u4E00-\u9FD5]+$/;
+			var regNum =  /^[0-9]+$/;
+			var regEmail = /[0-9a-zA-Z]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$/;
+			var regPhone1 = /^01(?:01[6-9])/;
+			var regPhone2 = /(?:\d{3}\d{4})/;
+			var regPhone3 = /\d{4}$/;
+
+			var kor = document.getElementById("kor").value;
+			var eng = document.getElementById("eng").value;
+			var hanm = document.getElementById("hanm").value;
+			var jumin1 = document.getElementById("jumin1").value;
+			var jumin2 = document.getElementById("jumin2").value;
+			var brith1 = document.getElementById("brith1").value;
+			var brith2 = document.getElementById("brith2").value;
+			var brith3 = document.getElementById("brith3").value;
+			var work_year = document.getElementById("work_year").value;
+			var phone1 = document.getElementById("phone1").value;
+			var phone2 = document.getElementById("phone2").value;
+			var phone3 = document.getElementById("phone3").value;
+			var phone3 = document.getElementById("email").value;
+			
+			if(confirm("등록하시겠습니까?")) {
+				var korck = regKor.test(kor);
+				if(!korck) {
+					alert("한글이름은 한글로 입력해주세요");
+					return false;
+				}
+				var engck = regEng.test(eng);
+				if(!engck) {
+					alert("영어이름은 영어로 입력해주세요");
+					return false;
+				}
+				var hanmrck = fegHanm.test(hanm);
+				if(!hanmrck) {
+					alert("한문이름은 한자로 입력해주세요");
+					return false;
+				}
+				var jumin1chk = regNum.test(jumin1);
+				if(!jumin1chk) {
+					alert("주민번호는 숫자로 입력해주세요");
+					return false;
+				}
+				var jumin2 = regNum.test(jumin2);
+				if(!jumin2) {
+					alert("주민번호는 숫자로 입력해주세요");
+					return false;
+				}
+				var brith1ck = regNum.test(brith1);
+				if(!brith1ck) {
+					alert("생년월일는 숫자로 입력해주세요");
+					return false;
+				}
+				var work_yearchk = regNum.test(work_year);
+				if(!work_yearchk) {
+					alert("생년월일는 숫자로 입력해주세요");
+					return false;
+				}
+				var brith3ck = regNum.test(brith3);
+				if(!brith3ck) {
+					alert("생년월일는 숫자로 입력해주세요");
+					return false;
+				}
+				var phone1chk = regPhone1.test(phone1);
+				if(!phone1chk) {
+					alert("연락처는 숫자로 입력해주세요");
+					return false;
+				}
+				var phone2chk = regPhone2.test(phone2);
+				if(!phone2chk) {
+					alert("연락처는 숫자로 입력해주세요");
+					return false;
+				}
+				var phone3chk = regPhone3.test(phone3);
+				if(!phone3chk) {
+					alert("연락처는 숫자로 입력해주세요");
+					return false;
+				}
+				var emailchk = regEmail.test(email);
+				if(!emailchk) {
+					alert("이메일는 이메일양식으로 입력해주세요");
+					return false;
+				}
+			}
+		}
+		
 	</script>
 </head>
 <body topmargin="0" leftmargin="0">
-	<form action="insert" method="post" enctype="multipart/form-data" onsubmit="return confirm('등록하시겠습니까?')">
+	<form action="insert" method="post" enctype="multipart/form-data" onsubmit="return validate();">
 		<table width="640" border="0" cellspacing="0" cellpadding="0">
 		  <tr> 
 		    <td width="640">&nbsp;</td>
@@ -109,24 +195,24 @@
 		                            <tr>
 		                              <td width="107" height="26" align="right"><strong>한글이름 :</strong>&nbsp;</td>
 		                              <td width="310" height="26">
-		                                <input type="text" name="kor_name" required="required">
+		                                <input type="text" name="kor_name" required="required" id="kor">
 		                              </td>
 		                            </tr>
 		                            <tr>
 		                              <td height="26" align="right"><strong>영문이름 :&nbsp;</strong></td>
 		                              <td height="26">
-		                              <input type="text" name="eng_name"></td>
+		                              <input type="text" name="eng_name" id="eng"></td>
 		                            </tr>
 		                            <tr>
 		                              <td height="26" align="right"><strong>한문이름:</strong>&nbsp;</td>
-		                              <td height="26"><input type="text" name="chn_name"></td>
+		                              <td height="26"><input type="text" name="chn_name" id="hanm"></td>
 		                            </tr>
 		                            <tr>
 		                              <td height="26" align="right"><strong>주민등록번호 :</strong>&nbsp;</td>
 		                              <td height="26">
-		                              <input name="jumin_nof" type="text" size="15" required="required">
+		                              <input name="jumin_nof" type="text" size="15" required="required" id="jumin1">
 								      	-
-								      <input name="jumin_nob" type="text" size="15" required="required"></td>
+								      <input name="jumin_nob" type="text" size="15" required="required" id="jumin2"></td>
 		                            </tr>
 		                          </table></td>
 		                        </tr>
@@ -160,9 +246,9 @@
 		                          <tr> 
 		                            <td width="102" align="right"><strong>생년월일 :&nbsp;</strong></td>
 		                            <td width="391">
-		                            	<input name="birth1" type="text" size="5">년
-		                                <input name="birth2" type="text" size="3">월
-		                                <input name="birth3" type="text" size="3">일
+		                            	<input name="birth1" type="text" size="5" id="brith1">년
+		                                <input name="birth2" type="text" size="3" id="brith2">월
+		                                <input name="birth3" type="text" size="3" id="brith3">일
 		                               
 		                               (<input type="radio" name="sol_flag" value="양력" checked="checked">양력
 		                                <input type="radio" name="sol_flag" value="음력">음력 )
@@ -196,7 +282,7 @@
 		                      <td bgcolor="#E4EBF1"><table width="500" border="0" cellspacing="1" cellpadding="1">
 		                          <tr> 
 		                            <td width="101" align="right"><strong>년차 :&nbsp;</strong></td>
-		                            <td width="392"><input name="work_year" type="text" size="10"> 
+		                            <td width="392"><input name="work_year" type="text" size="10" id="work_year"> 
 		                            </td>
 		                          </tr>
 		                        </table></td>
@@ -249,11 +335,11 @@
 		                          <tr> 
 		                            <td width="101" align="right"><strong>연락처:&nbsp;</strong></td>
 		                            <td width="392">
-		                            	<input name="phone1" type="text" size="10">
+		                            	<input name="phone1" type="text" size="10" id="phone1">
 		                              		- 
-		                              	<input name="phone2" type="text" size="10">
+		                              	<input name="phone2" type="text" size="10" id="phone2">
 		                              		- 
-		                              	<input name="phone3" type="text" size="10"></td>
+		                              	<input name="phone3" type="text" size="10" id="phone3"></td>
 		                          </tr>
 		                        </table></td>
 		                    </tr>
@@ -261,7 +347,7 @@
 		                      <td bgcolor="#E4EBF1"><table width="500" border="0" cellspacing="1" cellpadding="1">
 		                          <tr> 
 		                            <td width="101" align="right"><strong>이메일:&nbsp;</strong></td>
-		                            <td width="392"><input name="email" type="text" size="20"> 
+		                            <td width="392"><input name="email" type="text" size="20" id="email"> 
 		                            </td>
 		                          </tr>
 		                        </table></td>
@@ -270,7 +356,12 @@
 		                      <td bgcolor="#E4EBF1"><table width="500" border="0" cellspacing="1" cellpadding="1">
 		                          <tr> 
 		                            <td width="101" align="right"><strong>기술등급:&nbsp;</strong></td>
-		                            <td width="392"><input name="tech_lev" type="text" size="20"> 
+		                            <td width="392">
+		                            <select name="tech_lev">
+		                                <option value="초급">초급</option>
+		                                <option value="중급">중급</option>
+		                                <option value="고급">고급</option>
+		                            
 		                            </td>
 		                          </tr>
 		                        </table></td>

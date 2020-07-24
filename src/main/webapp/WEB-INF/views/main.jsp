@@ -236,6 +236,10 @@
 				alert('하나만 선택해주세요');
 				return;
 			}
+			if(checkbox.length == 0) {
+				alert("체크된 항목이 없습니다.");
+				return;
+			}	
 			location.href = "updateForm?no=" + checkbox.val();
 		}
 		
