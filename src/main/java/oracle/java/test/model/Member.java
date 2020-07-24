@@ -1,5 +1,10 @@
 package oracle.java.test.model;
 
+import javax.persistence.Column;
+
+import org.hibernate.annotations.Entity;
+import org.hibernate.validator.constraints.NotEmpty;
+
 
 public class Member {
 	private int no;

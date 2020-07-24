@@ -49,10 +49,7 @@
 			var regEng =  /^[a-zA-Z]+$/;
 			var fegHanm = /^[\u4E00-\u9FD5]+$/;
 			var regNum =  /^[0-9]+$/;
-			var regEmail = /[0-9a-zA-Z]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$/;
-			var regPhone1 = /^01(?:01[6-9])/;
-			var regPhone2 = /(?:\d{3}\d{4})/;
-			var regPhone3 = /\d{4}$/;
+			var regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 
 			var kor = document.getElementById("kor").value;
 			var eng = document.getElementById("eng").value;
@@ -66,65 +63,72 @@
 			var phone1 = document.getElementById("phone1").value;
 			var phone2 = document.getElementById("phone2").value;
 			var phone3 = document.getElementById("phone3").value;
-			var phone3 = document.getElementById("email").value;
+			var email = document.getElementById("email").value;
 			
 			if(confirm("등록하시겠습니까?")) {
 				var korck = regKor.test(kor);
+				var engck = regEng.test(eng);
+				var hanmrck = fegHanm.test(hanm);
+				var jumin1chk = regNum.test(jumin1);
+				var jumin2 = regNum.test(jumin2);
+				var brith1ck = regNum.test(brith1);
+				var brith2ck = regNum.test(brith2);
+				var brith3ck = regNum.test(brith3);
+				var work_yearchk = regNum.test(work_year);
+				var phone1chk = regNum.test(phone1);
+				var phone2chk = regNum.test(phone2);
+				var phone3chk = regNum.test(phone3);
+				var emailchk = regEmail.test(email);
+				
 				if(!korck) {
 					alert("한글이름은 한글로 입력해주세요");
 					return false;
 				}
-				var engck = regEng.test(eng);
 				if(!engck) {
 					alert("영어이름은 영어로 입력해주세요");
 					return false;
 				}
-				var hanmrck = fegHanm.test(hanm);
 				if(!hanmrck) {
 					alert("한문이름은 한자로 입력해주세요");
 					return false;
 				}
-				var jumin1chk = regNum.test(jumin1);
 				if(!jumin1chk) {
 					alert("주민번호는 숫자로 입력해주세요");
 					return false;
 				}
-				var jumin2 = regNum.test(jumin2);
 				if(!jumin2) {
 					alert("주민번호는 숫자로 입력해주세요");
 					return false;
 				}
-				var brith1ck = regNum.test(brith1);
 				if(!brith1ck) {
 					alert("생년월일는 숫자로 입력해주세요");
 					return false;
 				}
-				var work_yearchk = regNum.test(work_year);
-				if(!work_yearchk) {
+				if(!brith2ck) {
 					alert("생년월일는 숫자로 입력해주세요");
 					return false;
 				}
-				var brith3ck = regNum.test(brith3);
 				if(!brith3ck) {
 					alert("생년월일는 숫자로 입력해주세요");
 					return false;
 				}
-				var phone1chk = regPhone1.test(phone1);
+				if(!work_yearchk) {
+					alert("연차는 숫자로 입력해주세요");
+					return false;
+				}
 				if(!phone1chk) {
 					alert("연락처는 숫자로 입력해주세요");
 					return false;
 				}
-				var phone2chk = regPhone2.test(phone2);
 				if(!phone2chk) {
 					alert("연락처는 숫자로 입력해주세요");
 					return false;
 				}
-				var phone3chk = regPhone3.test(phone3);
 				if(!phone3chk) {
 					alert("연락처는 숫자로 입력해주세요");
 					return false;
 				}
-				var emailchk = regEmail.test(email);
+				alert(email);
 				if(!emailchk) {
 					alert("이메일는 이메일양식으로 입력해주세요");
 					return false;
@@ -137,6 +141,10 @@
 		     if(str == 6) {
 		       document.insert.jumin_nob.focus();
 		     }
+		     if(str > 6) {
+		    	 alert("주민등록번호 앞 6자리를 입력해주세요");
+		    	 return false;
+		     }
 		}
 		
 		function inputbirth() {
@@ -144,11 +152,14 @@
 		        temp1=document.insert.jumin_nof.value.substring(0,2);
 		        temp2=document.insert.jumin_nof.value.substring(2,4);
 		        temp3=document.insert.jumin_nof.value.substring(4,6);
-		        if( temp1 < 30 ){ document.jumin.birth1.value="20"+temp1; }
-		            else { document.insert.birth1.value="19"+temp1; }
-		                document.insert.birth2.value=temp2;
-		                document.insert.birth3.value=temp3;
-		}
+		        if( temp1 < 30 ){ 
+		        	document.insert.birth1.value="20"+temp1; 
+		        } else { 
+		        	document.insert.birth1.value="19"+temp1; }
+		            document.insert.birth2.value=temp2;
+		            document.insert.birth3.value=temp3; }
+		
+	
 		
 	</script>
 </head>
@@ -226,12 +237,12 @@
 		                              <td height="26"><input type="text" name="chn_name" id="hanm"></td>
 		                            </tr>
 		                            <tr>
-		                              <td height="26" align="right"><strong>주민등록번호 :</strong>&nbsp;</td>
+		                              <td height="26" align="right" width="300"><strong>주민등록번호 :</strong>&nbsp;</td>
 		                              <td height="26">
-		                              <input name="jumin_nof" type="text" size="15" required="required" id="jumin1" 
+		                              <input name="jumin_nof" type="text" size="8" required="required" id="jumin1" 
 		                              	onKeyUp="check();" onChange="inputbirth()">
 								      	-
-								      <input name="jumin_nob" type="text" size="15" required="required" id="jumin2"></td>
+								      <input name="jumin_nob" type="text" size="8" required="required" id="jumin2"></td>
 		                            </tr>
 		                          </table></td>
 		                        </tr>
@@ -354,11 +365,10 @@
 		                          <tr> 
 		                            <td width="101" align="right"><strong>연락처:&nbsp;</strong></td>
 		                            <td width="392">
-		                            	<input name="phone1" type="text" size="10" id="phone1">
-		                              		- 
-		                              	<input name="phone2" type="text" size="10" id="phone2">
-		                              		- 
-		                              	<input name="phone3" type="text" size="10" id="phone3"></td>
+		                            	<input name="phone1" type="text" size="10" id="phone1"> -
+		                              	<input name="phone2" type="text" size="10" id="phone2"> -
+		                              	<input name="phone3" type="text" size="10" id="phone3">
+		                            </td>
 		                          </tr>
 		                        </table></td>
 		                    </tr>
