@@ -176,6 +176,7 @@
 			var str = document.insert.jumin_nof.value.length;
 		     if(str == 6) {
 		       document.insert.jumin_nob.focus();
+		       $("#jumin2").val('');
 		     }
 		     if(str > 6) {
 		    	alert("주민등록번호 앞 6자리를 입력해주세요");
@@ -200,13 +201,14 @@
 		}
 		
 		function check2() {
-			var str = document.insert.jumin_nob.value.length;
-		    if(str > 7) {
+			var str1 = document.insert.jumin_nob.value.length;
+			var str2 = document.insert.jumin_nof.value.length;
+		    if(str1 > 7 ) {
 		    	alert("주민등록번호 뒤 7자리를 입력해주세요");
 		    	$("#jumin2").val('');
 				$("#jumin2").focus();
 		    }
-		    if(str == 7) {
+		    if(str2 == 6 && str1 == 7 ) {
 		    	var jumin_nof = document.insert.jumin_nof.value;
 		    	var jumin_nob = document.insert.jumin_nob.value;
 		    	$.ajax({
