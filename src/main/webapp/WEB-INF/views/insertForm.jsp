@@ -68,7 +68,7 @@
 			if(confirm("등록하시겠습니까?")) {
 				var korck = regKor.test(kor);
 				var engck = regEng.test(eng);
-				var hanmrck = fegHanm.test(hanm);
+				var hanmchk = fegHanm.test(hanm);
 				var jumin1chk = regNum.test(jumin1);
 				var jumin2 = regNum.test(jumin2);
 				var brith1ck = regNum.test(brith1);
@@ -82,82 +82,111 @@
 				
 				if(!korck) {
 					alert("한글이름은 한글로 입력해주세요");
+					$("#kor").val('');
+					$("#kor").focus();
 					return false;
 				}
 				if(!engck) {
 					alert("영어이름은 영어로 입력해주세요");
+					$("#eng").val('');
+					$("#eng").focus();
 					return false;
 				}
-				if(!hanmrck) {
+				if(!hanmchk) {
 					alert("한문이름은 한자로 입력해주세요");
+					$("#hanm").val('');
+					$("#hanm").focus();
 					return false;
 				}
 				if(!jumin1chk) {
 					alert("주민번호는 숫자로 입력해주세요");
+					$("#jumin1").val('');
+					$("#jumin1").focus();
 					return false;
 				}
 				if(!jumin2) {
 					alert("주민번호는 숫자로 입력해주세요");
+					$("#jumin2").val('');
+					$("#jumin2").focus();
 					return false;
 				}
 				if(!brith1ck) {
 					alert("생년월일는 숫자로 입력해주세요");
+					$("#birth1").val('');
+					$("#birth1").focus();
 					return false;
 				}
 				if(!brith2ck) {
 					alert("생년월일는 숫자로 입력해주세요");
+					$("#birth2").val('');
+					$("#birth2").focus();
 					return false;
 				}
 				if(!brith3ck) {
 					alert("생년월일는 숫자로 입력해주세요");
+					$("#birth3").val('');
+					$("#birth3").focus();
 					return false;
 				}
 				if(!work_yearchk) {
 					alert("연차는 숫자로 입력해주세요");
+					$("#work_year").val('');
+					$("#work_year").focus();
 					return false;
 				}
 				if(!phone1chk) {
 					alert("연락처는 숫자로 입력해주세요");
+					$("#phone1").val('');
+					$("#phone1").focus();
 					return false;
 				}
 				if(!phone2chk) {
 					alert("연락처는 숫자로 입력해주세요");
+					$("#phone2").val('');
+					$("#phone2").focus();
 					return false;
 				}
 				if(!phone3chk) {
 					alert("연락처는 숫자로 입력해주세요");
+					$("#phone3").val('');
+					$("#phone3").focus();
 					return false;
 				}
 				alert(email);
 				if(!emailchk) {
 					alert("이메일는 이메일양식으로 입력해주세요");
+					$("#email").val('');
+					$("#email").focus();
 					return false;
 				}
 			}
 		}
-		
 		function check() {
 			var str = document.insert.jumin_nof.value.length;
 		     if(str == 6) {
 		       document.insert.jumin_nob.focus();
 		     }
 		     if(str > 6) {
-		    	 alert("주민등록번호 앞 6자리를 입력해주세요");
-		    	 return false;
+		    	alert("주민등록번호 앞 6자리를 입력해주세요");
+		    	$("#jumin1").val('');
+				$("#jumin1").focus();
 		     }
 		}
 		
 		function inputbirth() {
 		    var temp1,temp2,temp3;
-		        temp1=document.insert.jumin_nof.value.substring(0,2);
-		        temp2=document.insert.jumin_nof.value.substring(2,4);
-		        temp3=document.insert.jumin_nof.value.substring(4,6);
+
+		        temp1 = document.insert.jumin_nof.value.substring(0,2);
+		        temp2 = document.insert.jumin_nof.value.substring(2,4);
+		        temp3 = document.insert.jumin_nof.value.substring(4,6);
 		        if( temp1 < 30 ){ 
 		        	document.insert.birth1.value="20"+temp1; 
 		        } else { 
-		        	document.insert.birth1.value="19"+temp1; }
+		        	document.insert.birth1.value="19"+temp1; 
+		        }
 		            document.insert.birth2.value=temp2;
-		            document.insert.birth3.value=temp3; }
+		            document.insert.birth3.value=temp3; 
+		}
 		
 	
 		
