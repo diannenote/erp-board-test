@@ -178,4 +178,14 @@ public class MainController {
 			return savedName;
 		}
 	 
+	 @RequestMapping("juminchk")
+	 @ResponseBody
+	 public int juminchk (Member member) {
+		 System.out.println("juminchk controller");
+		 System.out.println(member.getJumin_nof() + "," +member.getJumin_nob());
+		 int result;
+		 result = mainService.juminchk(member);
+		 return result;
+	 }
+	 
 }

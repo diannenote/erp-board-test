@@ -13,5 +13,6 @@ public interface MainService {
 	void update(Member member);
 	int total(Paging paging);
 	void delete(String[] strArray);
+	int juminchk(Member member);
 	
 }

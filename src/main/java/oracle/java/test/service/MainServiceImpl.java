@@ -43,8 +43,12 @@ public class MainServiceImpl implements MainService {
 
 	@Override
 	public void delete(String[] strArray) {
-		System.out.println(strArray);
 		mainDao.delete(strArray);
+	}
+
+	@Override
+	public int juminchk(Member member) {
+		return mainDao.juminchk(member);
 	}
 
 

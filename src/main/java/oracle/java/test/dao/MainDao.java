@@ -13,5 +13,6 @@ public interface MainDao {
 	Member memberinfo(int no);
 	void update(Member member);
 	int total(Paging paging);
+	int juminchk(Member member);
 
 }

@@ -50,15 +50,17 @@
 			var fegHanm = /^[\u4E00-\u9FD5]+$/;
 			var regNum =  /^[0-9]+$/;
 			var regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+			var regJumin1 = /^(?:[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1,2][0-9]|3[0,1]))$/;
+			var regJumin2 = /^[1-4][0-9]{6}$/;
 
 			var kor = document.getElementById("kor").value;
 			var eng = document.getElementById("eng").value;
 			var hanm = document.getElementById("hanm").value;
 			var jumin1 = document.getElementById("jumin1").value;
 			var jumin2 = document.getElementById("jumin2").value;
-			var brith1 = document.getElementById("brith1").value;
-			var brith2 = document.getElementById("brith2").value;
-			var brith3 = document.getElementById("brith3").value;
+			var birth1 = document.getElementById("birth1").value;
+			var birth2 = document.getElementById("birth2").value;
+			var birth3 = document.getElementById("birth3").value;
 			var work_year = document.getElementById("work_year").value;
 			var phone1 = document.getElementById("phone1").value;
 			var phone2 = document.getElementById("phone2").value;
@@ -69,17 +71,18 @@
 				var korck = regKor.test(kor);
 				var engck = regEng.test(eng);
 				var hanmchk = fegHanm.test(hanm);
-				var jumin1chk = regNum.test(jumin1);
-				var jumin2 = regNum.test(jumin2);
-				var brith1ck = regNum.test(brith1);
-				var brith2ck = regNum.test(brith2);
-				var brith3ck = regNum.test(brith3);
+				var jumin1chk = regJumin1.test(jumin1);
+				var jumin2 = regJumin2.test(jumin2);
+				var birth1ck = regNum.test(birth1);
+				var birth2ck = regNum.test(birth2);
+				var birth3ck = regNum.test(birth3);
 				var work_yearchk = regNum.test(work_year);
 				var phone1chk = regNum.test(phone1);
 				var phone2chk = regNum.test(phone2);
 				var phone3chk = regNum.test(phone3);
 				var emailchk = regEmail.test(email);
-				
+				var juminfStr = document.insert.jumin_nof.value.length;
+				var juminbStr = document.insert.jumin_nob.value.length;
 				if(!korck) {
 					alert("한글이름은 한글로 입력해주세요");
 					$("#kor").val('');
@@ -99,30 +102,30 @@
 					return false;
 				}
 				if(!jumin1chk) {
-					alert("주민번호는 숫자로 입력해주세요");
+					alert("주민등록번호 앞 6자리를 입력해주세요");
 					$("#jumin1").val('');
 					$("#jumin1").focus();
 					return false;
 				}
 				if(!jumin2) {
-					alert("주민번호는 숫자로 입력해주세요");
+					alert("주민등록번호 뒤 7자리를 입력해주세요");
 					$("#jumin2").val('');
 					$("#jumin2").focus();
 					return false;
 				}
-				if(!brith1ck) {
+				if(!birth1ck) {
 					alert("생년월일는 숫자로 입력해주세요");
 					$("#birth1").val('');
 					$("#birth1").focus();
 					return false;
 				}
-				if(!brith2ck) {
+				if(!birth2ck) {
 					alert("생년월일는 숫자로 입력해주세요");
 					$("#birth2").val('');
 					$("#birth2").focus();
 					return false;
 				}
-				if(!brith3ck) {
+				if(!birth3ck) {
 					alert("생년월일는 숫자로 입력해주세요");
 					$("#birth3").val('');
 					$("#birth3").focus();
@@ -152,13 +155,14 @@
 					$("#phone3").focus();
 					return false;
 				}
-				alert(email);
 				if(!emailchk) {
 					alert("이메일는 이메일양식으로 입력해주세요");
 					$("#email").val('');
 					$("#email").focus();
 					return false;
 				}
+			
+
 			}
 		}
 		function check() {
@@ -186,6 +190,39 @@
 		        }
 		            document.insert.birth2.value=temp2;
 		            document.insert.birth3.value=temp3; 
+		}
+		
+		function check2() {
+			var str = document.insert.jumin_nob.value.length;
+		    if(str > 7) {
+		    	alert("주민등록번호 뒤 7자리를 입력해주세요");
+		    	$("#jumin2").val('');
+				$("#jumin2").focus();
+		    }
+		    if(str == 7) {
+		    	var jumin_nof = document.insert.jumin_nof.value;
+		    	var jumin_nob = document.insert.jumin_nob.value;
+		    	$.ajax({
+					type : "POST",
+					url: "juminchk",
+					data: { jumin_nof,
+							jumin_nob },
+					success : function(data) {
+						if(data == 1) {
+							alert("이미등록되어 있습니다.");
+							$("#jumin1").val('');
+							$("#jumin2").val('');
+							$("#jumin1").focus();
+							
+						} else {
+							alert("미등록 주민번호 확인 ok");
+						}
+					},	
+					error:function(request, status, error){
+			      	   alert("code=" + request.status + "message=" + request.responseText + "error=" + error);
+					}    
+				});
+		    }
 		}
 		
 	
@@ -268,10 +305,12 @@
 		                            <tr>
 		                              <td height="26" align="right" width="300"><strong>주민등록번호 :</strong>&nbsp;</td>
 		                              <td height="26">
-		                              <input name="jumin_nof" type="text" size="8" required="required" id="jumin1" 
-		                              	onKeyUp="check();" onChange="inputbirth()">
-								      	-
-								      <input name="jumin_nob" type="text" size="8" required="required" id="jumin2"></td>
+			                              <input name="jumin_nof" type="text" size="8" required="required" id="jumin1" 
+			                              	onKeyUp="check();" onChange="inputbirth()">
+									      	-
+									      <input name="jumin_nob" type="text" size="8" required="required" id="jumin2"
+									       onKeyUp="check2();">
+								       </td>
 		                            </tr>
 		                          </table></td>
 		                        </tr>
@@ -305,9 +344,9 @@
 		                          <tr> 
 		                            <td width="102" align="right"><strong>생년월일 :&nbsp;</strong></td>
 		                            <td width="391">
-		                            	<input name="birth1" type="text" size="5" id="brith1">년
-		                                <input name="birth2" type="text" size="3" id="brith2">월
-		                                <input name="birth3" type="text" size="3" id="brith3">일
+		                            	<input name="birth1" type="text" size="5" id="birth1">년
+		                                <input name="birth2" type="text" size="3" id="birth2">월
+		                                <input name="birth3" type="text" size="3" id="birth3">일
 		                               
 		                               (<input type="radio" name="sol_flag" value="양력" checked="checked">양력
 		                                <input type="radio" name="sol_flag" value="음력">음력 )

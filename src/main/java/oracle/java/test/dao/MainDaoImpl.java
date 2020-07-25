@@ -45,5 +45,10 @@ public class MainDaoImpl implements MainDao {
 		System.out.println(strArray);
 		session.delete("delete", strArray);		
 	}
+
+	@Override
+	public int juminchk(Member member) {
+		return session.selectOne("juminchk", member);
+	}
 	
 }

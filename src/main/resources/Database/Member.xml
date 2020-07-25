@@ -74,6 +74,9 @@
 					where tech_lev like '%'||#{keyword}||'%' 
 			    </if>   
 	</select>
+	<select id="juminchk" parameterType="member" resultType="int">
+		select count(*) from member where jumin_nof = #{jumin_nof} and jumin_nob = #{jumin_nob}
+	</select>
 </mapper>
   
 

@@ -50,10 +50,192 @@
 				reader.readAsDataURL(f);
 			});
 		}
+		
+		function validate() {
+			var regKor = /^[가-힣]+$/; 
+			var regEng =  /^[a-zA-Z]+$/;
+			var fegHanm = /^[\u4E00-\u9FD5]+$/;
+			var regNum =  /^[0-9]+$/;
+			var regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+			var regJumin1 = /^(?:[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1,2][0-9]|3[0,1]))$/;
+			var regJumin2 = /^[1-4][0-9]{6}$/;
+
+			var kor = document.getElementById("kor").value;
+			var eng = document.getElementById("eng").value;
+			var hanm = document.getElementById("hanm").value;
+			var jumin1 = document.getElementById("jumin1").value;
+			var jumin2 = document.getElementById("jumin2").value;
+			var birth1 = document.getElementById("birth1").value;
+			var birth2 = document.getElementById("birth2").value;
+			var birth3 = document.getElementById("birth3").value;
+			var work_year = document.getElementById("work_year").value;
+			var phone1 = document.getElementById("phone1").value;
+			var phone2 = document.getElementById("phone2").value;
+			var phone3 = document.getElementById("phone3").value;
+			var email = document.getElementById("email").value;
+			
+			if(confirm("수정하시겠습니까?")) {
+				var korck = regKor.test(kor);
+				var engck = regEng.test(eng);
+				var hanmchk = fegHanm.test(hanm);
+				var jumin1chk = regJumin1.test(jumin1);
+				var jumin2 = regJumin2.test(jumin2);
+				var birth1ck = regNum.test(birth1);
+				var birth2ck = regNum.test(birth2);
+				var birth3ck = regNum.test(birth3);
+				var work_yearchk = regNum.test(work_year);
+				var phone1chk = regNum.test(phone1);
+				var phone2chk = regNum.test(phone2);
+				var phone3chk = regNum.test(phone3);
+				var emailchk = regEmail.test(email);
+				var juminfStr = document.insert.jumin_nof.value.length;
+				var juminbStr = document.insert.jumin_nob.value.length;
+				if(!korck) {
+					alert("한글이름은 한글로 입력해주세요");
+					$("#kor").val('');
+					$("#kor").focus();
+					return false;
+				}
+				if(!engck) {
+					alert("영어이름은 영어로 입력해주세요");
+					$("#eng").val('');
+					$("#eng").focus();
+					return false;
+				}
+				if(!hanmchk) {
+					alert("한문이름은 한자로 입력해주세요");
+					$("#hanm").val('');
+					$("#hanm").focus();
+					return false;
+				}
+				if(!jumin1chk) {
+					alert("주민등록번호 앞 6자리를 입력해주세요");
+					$("#jumin1").val('');
+					$("#jumin1").focus();
+					return false;
+				}
+				if(!jumin2) {
+					alert("주민등록번호 뒤 7자리를 입력해주세요");
+					$("#jumin2").val('');
+					$("#jumin2").focus();
+					return false;
+				}
+				if(!birth1ck) {
+					alert("생년월일는 숫자로 입력해주세요");
+					$("#birth1").val('');
+					$("#birth1").focus();
+					return false;
+				}
+				if(!birth2ck) {
+					alert("생년월일는 숫자로 입력해주세요");
+					$("#birth2").val('');
+					$("#birth2").focus();
+					return false;
+				}
+				if(!birth3ck) {
+					alert("생년월일는 숫자로 입력해주세요");
+					$("#birth3").val('');
+					$("#birth3").focus();
+					return false;
+				}
+				if(!work_yearchk) {
+					alert("연차는 숫자로 입력해주세요");
+					$("#work_year").val('');
+					$("#work_year").focus();
+					return false;
+				}
+				if(!phone1chk) {
+					alert("연락처는 숫자로 입력해주세요");
+					$("#phone1").val('');
+					$("#phone1").focus();
+					return false;
+				}
+				if(!phone2chk) {
+					alert("연락처는 숫자로 입력해주세요");
+					$("#phone2").val('');
+					$("#phone2").focus();
+					return false;
+				}
+				if(!phone3chk) {
+					alert("연락처는 숫자로 입력해주세요");
+					$("#phone3").val('');
+					$("#phone3").focus();
+					return false;
+				}
+				if(!emailchk) {
+					alert("이메일는 이메일양식으로 입력해주세요");
+					$("#email").val('');
+					$("#email").focus();
+					return false;
+				}
+			
+
+			}
+		}
+		function check() {
+			var str = document.insert.jumin_nof.value.length;
+		     if(str == 6) {
+		       document.insert.jumin_nob.focus();
+		     }
+		     if(str > 6) {
+		    	alert("주민등록번호 앞 6자리를 입력해주세요");
+		    	$("#jumin1").val('');
+				$("#jumin1").focus();
+		     }
+		}
+		
+		function inputbirth() {
+		    var temp1,temp2,temp3;
+
+		        temp1 = document.insert.jumin_nof.value.substring(0,2);
+		        temp2 = document.insert.jumin_nof.value.substring(2,4);
+		        temp3 = document.insert.jumin_nof.value.substring(4,6);
+		        if( temp1 < 30 ){ 
+		        	document.insert.birth1.value="20"+temp1; 
+		        } else { 
+		        	document.insert.birth1.value="19"+temp1; 
+		        }
+		            document.insert.birth2.value=temp2;
+		            document.insert.birth3.value=temp3; 
+		}
+		
+		function check2() {
+			var str = document.insert.jumin_nob.value.length;
+		    if(str > 7) {
+		    	alert("주민등록번호 뒤 7자리를 입력해주세요");
+		    	$("#jumin2").val('');
+				$("#jumin2").focus();
+		    }
+		    if(str == 7) {
+		    	var jumin_nof = document.insert.jumin_nof.value;
+		    	var jumin_nob = document.insert.jumin_nob.value;
+		    	$.ajax({
+					type : "POST",
+					url: "juminchk",
+					data: { jumin_nof,
+							jumin_nob },
+					success : function(data) {
+						if(data == 1) {
+							alert("이미등록되어 있습니다.");
+							$("#jumin1").val('');
+							$("#jumin2").val('');
+							$("#jumin1").focus();
+							
+						} else {
+							alert("미등록 주민번호 확인 ok");
+						}
+					},	
+					error:function(request, status, error){
+			      	   alert("code=" + request.status + "message=" + request.responseText + "error=" + error);
+					}    
+				});
+		    }
+		}
+		
 	</script>
 </head>
 <body topmargin="0" leftmargin="0">
-	<form action="update" method="post"  enctype="multipart/form-data" onsubmit="return confirm('수정하시겠습니까?')">
+	<form name="insert" action="update" method="post"  enctype="multipart/form-data" onsubmit="return validate();">
 		<input type="hidden" name="no" value="${member.no }">
 		<table width="640" border="0" cellspacing="0" cellpadding="0">
 		  <tr> 
@@ -119,24 +301,27 @@
 		                            <tr>
 		                              <td width="107" height="26" align="right"><strong>한글이름 :</strong>&nbsp;</td>
 		                              <td width="310" height="26">
-		                                <input type="text" name="kor_name" required="required" value=${member.kor_name }>
+		                                <input type="text" name="kor_name" required="required" id="kor" value=${member.kor_name }>
 		                              </td>
 		                            </tr>
 		                            <tr>
 		                              <td height="26" align="right"><strong>영문이름 :&nbsp;</strong></td>
 		                              <td height="26">
-		                              <input type="text" name="eng_name" value=${member.eng_name }></td>
+		                              <input type="text" name="eng_name" id="eng" value=${member.eng_name }></td>
 		                            </tr>
 		                            <tr>
 		                              <td height="26" align="right"><strong>한문이름:</strong>&nbsp;</td>
-		                              <td height="26"><input type="text" name="chn_name" value=${member.chn_name }></td>
+		                              <td height="26"><input type="text" name="chn_name" id="hanm" value=${member.chn_name }></td>
 		                            </tr>
 		                            <tr>
 		                              <td height="26" align="right"><strong>주민등록번호 :</strong>&nbsp;</td>
 		                              <td height="26">
-		                              <input name="jumin_nof" type="text" size="15" required="required" value=${member.jumin_nof }>
-								      	-
-								      <input name="jumin_nob" type="text" size="15" required="required" value=${member.jumin_nob }></td>
+			                              <input name="jumin_nof" type="text" size="15" required="required" id="jumin1" value=${member.jumin_nof }
+			                              	onKeyUp="check();" onChange="inputbirth()">
+									      	-
+									      <input name="jumin_nob" type="text" size="15" required="required" id="jumin2" value=${member.jumin_nob }
+									      	onKeyUp="check2();">
+								      	</td>
 		                            </tr>
 		                          </table></td>
 		                        </tr>
@@ -169,9 +354,9 @@
 		                          <tr> 
 		                            <td width="102" align="right"><strong>생년월일 :&nbsp;</strong></td>
 		                            <td width="391">
-		                            	<input name="birth1" type="text" size="5" value=${member.birth1 }>년
-		                                <input name="birth2" type="text" size="3" value=${member.birth2 }>월
-		                                <input name="birth3" type="text" size="3" value=${member.birth3 }>일
+		                            	<input name="birth1" type="text" size="5" id="birth1" value=${member.birth1 }>년
+		                                <input name="birth2" type="text" size="3" id="birth2" value=${member.birth2 }>월
+		                                <input name="birth3" type="text" size="3" id="birth3" value=${member.birth3 }>일
 		                               <c:choose>
 			                               <c:when test="${member.sol_flag eq '양력' }">
 			                                	(<input type="radio" name="sol_flag" value="양력" checked="checked">양력
@@ -230,7 +415,7 @@
 		                      <td bgcolor="#E4EBF1"><table width="500" border="0" cellspacing="1" cellpadding="1">
 		                          <tr> 
 		                            <td width="101" align="right"><strong>년차 :&nbsp;</strong></td>
-		                            <td width="392"><input name="work_year" type="text" size="10" value="${member.work_year }"> 
+		                            <td width="392"><input name="work_year" id="work_year" type="text" size="10" value="${member.work_year }"> 
 		                            </td>
 		                          </tr>
 		                        </table></td>
@@ -313,11 +498,11 @@
 		                          <tr> 
 		                            <td width="101" align="right"><strong>연락처:&nbsp;</strong></td>
 		                            <td width="392">
-		                            	<input name="phone1" type="text" size="10" value="${member.phone1 }">
+		                            	<input name="phone1" id="phone1" type="text" size="10" value="${member.phone1 }">
 		                              		- 
-		                              	<input name="phone2" type="text" size="10" value="${member.phone2 }">
+		                              	<input name="phone2" id="phone2" type="text" size="10" value="${member.phone2 }">
 		                              		- 
-		                              	<input name="phone3" type="text" size="10" value="${member.phone3 }"></td>
+		                              	<input name="phone3" id="phone3" type="text" size="10" value="${member.phone3 }"></td>
 		                          </tr>
 		                        </table></td>
 		                    </tr>
@@ -325,7 +510,7 @@
 		                      <td bgcolor="#E4EBF1"><table width="500" border="0" cellspacing="1" cellpadding="1">
 		                          <tr> 
 		                            <td width="101" align="right"><strong>이메일:&nbsp;</strong></td>
-		                            <td width="392"><input name="email" type="text" size="20" value="${member.email }"></td> 
+		                            <td width="392"><input name="email" id="email" type="text" size="20" value="${member.email }"></td> 
 		                          </tr>
 		                        </table></td>
 		                    </tr>
