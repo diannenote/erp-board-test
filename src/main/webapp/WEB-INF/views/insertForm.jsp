@@ -169,6 +169,7 @@
 			var str = document.insert.jumin_nof.value.length;
 		     if(str == 6) {
 		       document.insert.jumin_nob.focus();
+		       $("#jumin2").val('');
 		     }
 		     if(str > 6) {
 		    	alert("주민등록번호 앞 6자리를 입력해주세요");
@@ -225,9 +226,29 @@
 				});
 		    }
 		}
-		
-	
-		
+	  	
+	  	window.onload = function(){
+	  	  onlyKorFunc(document.getElementById("kor"));
+	  	}
+	  	function onlyKorFunc(t){
+	  		var regexp = /[a-z0-9]|[ \[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g;
+			
+	  		t.onkeyup = function(e){
+				var v = e.target.value;
+			 
+				if (regexp.test(v)) {
+					$('#gongbak').text("※한글만 입력이 가능합니다.");
+				}
+			  
+		       	var regKor = /^[가-힣]+$/; 
+		        var chk = regKor.test(v);
+		        
+				if(chk) {
+					$('#gongbak').text("");
+				}
+			}
+	  	}
+				
 	</script>
 </head>
 <body topmargin="0" leftmargin="0">
@@ -293,6 +314,9 @@
 		                              <td width="310" height="26">
 		                                <input type="text" name="kor_name" required="required" id="kor">
 		                              </td>
+		                              <td width="310">
+		                              	<div id="gongbak" style="font-size: 13px; color: red;"></div>
+		                              </td>	
 		                            </tr>
 		                            <tr>
 		                              <td height="26" align="right"><strong>영문이름 :&nbsp;</strong></td>

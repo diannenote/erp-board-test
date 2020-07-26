@@ -233,6 +233,27 @@
 				});
 		    }
 		}
+		window.onload = function(){
+		  	  onlyKorFunc(document.getElementById("kor"));
+		  	}
+		  	function onlyKorFunc(t){
+		  		var regexp = /[a-z0-9]|[ \[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g;
+				
+		  		t.onkeyup = function(e){
+					var v = e.target.value;
+				 
+					if (regexp.test(v)) {
+						$('#gongbak').text("※한글만 입력이 가능합니다.");
+					}
+				  
+			       	var regKor = /^[가-힣]+$/; 
+			        var chk = regKor.test(v);
+			        
+					if(chk) {
+						$('#gongbak').text("");
+					}
+				}
+		  	}
 		
 	</script>
 </head>
@@ -302,8 +323,11 @@
 		                              </tr>
 		                            <tr>
 		                              <td width="107" height="26" align="right"><strong>한글이름 :</strong>&nbsp;</td>
-		                              <td width="310" height="26">
+		                              <td width="200" height="26">
 		                                <input type="text" name="kor_name" required="required" id="kor" value=${member.kor_name }>
+		                              </td>
+		                              <td width="200">
+		                                <div id="gongbak" style="font-size: 13px; color: red;"></div>
 		                              </td>
 		                            </tr>
 		                            <tr>
