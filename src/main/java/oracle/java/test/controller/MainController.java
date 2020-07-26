@@ -6,9 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.annotation.Resource;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,13 +15,15 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
+import oracle.java.test.model.Board;
 import oracle.java.test.model.Member;
 import oracle.java.test.model.Paging;
+import oracle.java.test.service.ExcelDownload;
 import oracle.java.test.service.MainService;
 
 @Controller
@@ -42,7 +41,7 @@ public class MainController {
 		List<Member> mainList = mainService.mainList(paging);
 		int total = mainService.total(paging);
 		paging.setTotal(total);
-		
+		System.out.println(paging.getSex() +","+ paging.getKor_name());
 		model.addAttribute("mainList", mainList);
 		model.addAttribute("paging", paging);
 		model.addAttribute("total", total);
@@ -159,24 +158,53 @@ public class MainController {
 	 
 	  }
 	 
+	 @RequestMapping(value = "/excelupload", method = RequestMethod.GET)
+	 public String fildUploadForm() {
+	     return "excelUploadForm";
+	 }
+	 
+	 @RequestMapping(value = "/excelupload", method = RequestMethod.POST)
+	 public ModelAndView fildUpload(MultipartHttpServletRequest mReq) {
+	     ModelAndView mav = new ModelAndView();
+	     try{
+	         mainService.excelFileUpload(mReq);
+	     } catch( RuntimeException e){
+	         e.printStackTrace();
+	     }
+	     mav.setViewName("excelUploadForm");
+	     return mav;
+	 }
+	 
+	 
+     
+	@RequestMapping(value="exceldownload", method=RequestMethod.GET)
+	public ModelAndView excelDownload(){
+	    ModelAndView mav = new ModelAndView();
+	    List<Board> list = mainService.getList();
+	    mav.addObject("list", list);
+	    mav.setViewName("excelDownload");
+	    return mav;
+	}
+
+	 
 	 private String uploadFile(String originalName, byte[] fileData, String uploadPath) throws Exception {
-			UUID uid = UUID.randomUUID();
-			//requestPath = requestPath + "/resources/image";
-			System.out.println("uploadPath -> " + uploadPath);
-			// Directory 생성
-			File fileDirectory = new File(uploadPath);
-			if(!fileDirectory.exists()) {
-				fileDirectory.mkdirs();
-				System.out.println("업로드용 폴더 생성: " + uploadPath);
-			}
-			String savedName = uid.toString() + "_" + originalName;
-			//String path1 = "C:\\spring\\springSrc39\\.metadata\\.plugins\\org.eclipse.wst.server...";
-			File target = new File(uploadPath, savedName);
-			//File target = new File(requestPath, savedName);
-			FileCopyUtils.copy(fileData, target);
-			
-			return savedName;
+		UUID uid = UUID.randomUUID();
+		//requestPath = requestPath + "/resources/image";
+		System.out.println("uploadPath -> " + uploadPath);
+		// Directory 생성
+		File fileDirectory = new File(uploadPath);
+		if(!fileDirectory.exists()) {
+			fileDirectory.mkdirs();
+			System.out.println("업로드용 폴더 생성: " + uploadPath);
 		}
+		String savedName = uid.toString() + "_" + originalName;
+		//String path1 = "C:\\spring\\springSrc39\\.metadata\\.plugins\\org.eclipse.wst.server...";
+		File target = new File(uploadPath, savedName);
+		//File target = new File(requestPath, savedName);
+		FileCopyUtils.copy(fileData, target);
+		
+		return savedName;
+	}
 	 
 	 @RequestMapping("juminchk")
 	 @ResponseBody

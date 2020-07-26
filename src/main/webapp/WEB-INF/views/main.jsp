@@ -113,6 +113,38 @@
 		          </form> 	 
 	           </td>
 	        </tr>
+	        <!--다중검색  -->
+	        <tr>
+	        	<td>
+	        		<form action="main" name="frm">
+	        			이름:<input name="kor_name" type="text" value="${param.kor_name }">
+	        			<button>검색</button>		
+	        			생년월일:<input name="jumin_nof" type="text" value="${param.jumin_nof }">
+	        			<button>검색</button>
+	        			<select name="sex" onchange="selsubmit()">
+	        				<option value="">:::성별:::</option>
+	        				<option value="남자" <c:if test="${param.sex eq '남자'}">selected</c:if>>남자</option>
+	        				<option value="여자" <c:if test="${param.sex eq '여자'}">selected</c:if>>여자</option>
+	        			</select>
+	        			<select name="tech_lev" onchange="selsubmit()">
+	        				<option value="">::기술등급::</option>
+	        				<option value="초급" <c:if test="${param.tech_lev eq '초급'}">selected</c:if>>초급</option>
+	        				<option value="중급" <c:if test="${param.tech_lev eq '중급'}">selected</c:if>>중급</option>
+	        				<option value="고급" <c:if test="${param.tech_lev eq '고급'}">selected</c:if>>고급</option>
+	        			</select>
+	        			<select name="job_type" onchange="selsubmit()">
+	        				<option value="">::입사유형::</option>
+	        				<option value="정규직" <c:if test="${param.job_type eq '초급'}">selected</c:if>>정규직</option>
+	        				<option value="계약직" <c:if test="${param.job_type eq '초급'}">selected</c:if>>계약직</option>
+	        			</select>
+	        			<select name="dept" onchange="selsubmit()">
+	        				<option value="">::직무::</option>
+	        				<option value="SI" <c:if test="${param.dept eq 'SI'}">selected</c:if>>SI</option>
+	        				<option value="SM" <c:if test="${param.dept eq 'SM'}">selected</c:if>>SM</option>
+	        			</select>
+	        		</form>
+	        	</td>
+	        </tr>
 	        <tr> 
 	          <td><table width="640" border="0" cellspacing="0" cellpadding="0">
 	              <tr> 
@@ -154,22 +186,22 @@
 		                  </c:forEach>  
 	                    <tr> 
 	                    	<td height="35" colspan="7" align="center" style="padding-bottom:3"> 
-								<a href="main?currentPage=1">
+								<a href="main?currentPage=1&type=${param.type}&keyword=${param.keyword}&kor_name=${param.kor_name}&jumin_nof=${param.jumin_nof}&sex=${param.sex}&tech_lev=${param.tech_lev}&job_type=${param.job_type}&dept=${param.dept}">
 									<img src="image/prev.gif" width="22" height="15" border="0" align="absmiddle">
 								</a>
 	                    		<c:if test="${paging.before eq true }">
-									<a href="main?currentPage=${paging.startPage - 1}">
+									<a href="main?currentPage=${paging.startPage - 1}&type=${param.type}&keyword=${param.keyword}&kor_name=${param.kor_name}&jumin_nof=${param.jumin_nof}&sex=${param.sex}&tech_lev=${param.tech_lev}&job_type=${param.job_type}&dept=${param.dept}">
 									<img src="image/pre.gif" width="42" height="15" border="0" align="absmiddle"></a>
 								</c:if>
 								<c:forEach var="i" begin="${paging.startPage}" end="${paging.endPage}">
-									<a href="main?currentPage=${i}" class="paging-num">&nbsp;${i}&nbsp;</a>
+									<a href="main?currentPage=${i}&type=${param.type}&keyword=${param.keyword}&kor_name=${param.kor_name}&jumin_nof=${param.jumin_nof}&sex=${param.sex}&tech_lev=${param.tech_lev}&job_type=${param.job_type}&dept=${param.dept}" class="paging-num">&nbsp;${i}&nbsp;</a>
 								</c:forEach>
 								<c:if test="${paging.next eq true}">
-									<a href="main?currentPage=${paging.endPage + 1}"> </a>
+									<a href="main?currentPage=${paging.endPage + 1}&type=${param.type}&keyword=${param.keyword}&kor_name=${param.kor_name}&jumin_nof=${param.jumin_nof}&sex=${param.sex}&tech_lev=${param.tech_lev}&job_type=${param.job_type}&dept=${param.dept}"> </a>
 									<img src="image/next.gif" width="42" height="15" border="0" align="absmiddle">
 								</c:if>
-								<a href="main?currentPage=${paging.totalPage }">
-									<img src="image/next_.gif" width="22" height="15" border="0" align="absmiddle"></a>
+								<a href="main?currentPage=${paging.totalPage }&kor_name=${param.kor_name}&jumin_nof=${param.jumin_nof}&sex=${param.sex}&tech_lev=${param.tech_lev}&job_type=${param.job_type}&dept=${param.dept}">
+									<img src="image/next_.gif" width="22" height="15" border="0" align="absmiddle">
 								</a>
 	                    	</td>
 	                    </tr>
@@ -254,6 +286,9 @@
 			} else {
 				$('input[name=checkbox]').prop('checked', false);
 			}
+		}
+		function selsubmit() {
+			document.frm.submit();
 		}
 	
 	</script>

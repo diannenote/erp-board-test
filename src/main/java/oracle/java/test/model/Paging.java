@@ -12,8 +12,60 @@ public class Paging {
 	
 	private String type;
 	private String keyword;
+//	다중검색
+	private String kor_name, sex;
+	private String jumin_nof, tech_lev;
+	private String dept, job_type;
 	
 	
+	public String getTech_lev() {
+		return tech_lev;
+	}
+
+	public void setTech_lev(String tech_lev) {
+		this.tech_lev = tech_lev;
+	}
+
+	public String getKor_name() {
+		return kor_name;
+	}
+
+	public void setKor_name(String kor_name) {
+		this.kor_name = kor_name;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getJumin_nof() {
+		return jumin_nof;
+	}
+
+	public void setJumin_nof(String jumin_nof) {
+		this.jumin_nof = jumin_nof;
+	}
+
+	public String getDept() {
+		return dept;
+	}
+
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+
+	public String getJob_type() {
+		return job_type;
+	}
+
+	public void setJob_type(String job_type) {
+		this.job_type = job_type;
+	}
+
 	public String getType() { return type; }
 
 	public void setType(String type) { this.type = type; }

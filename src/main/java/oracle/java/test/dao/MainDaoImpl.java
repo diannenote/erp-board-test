@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import oracle.java.test.model.Board;
 import oracle.java.test.model.Member;
 import oracle.java.test.model.Paging;
 
@@ -49,6 +50,16 @@ public class MainDaoImpl implements MainDao {
 	@Override
 	public int juminchk(Member member) {
 		return session.selectOne("juminchk", member);
+	}
+
+	@Override
+	public void insertBoard(Board board) {
+		session.insert("insertBoard", board);
+	}
+
+	@Override
+	public List<Board> getBoardList() {
+		return session.selectList("selectBoardList");
 	}
 	
 }

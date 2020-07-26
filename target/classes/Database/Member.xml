@@ -7,21 +7,40 @@
 		select * from  
             (select rownum rnum, a.* 
             from (select * from member 
+            	where 1 = 1
             	<if test="keyword != null and !keyword.equals('') and type.equals('all')">
-					where kor_name like '%'||#{keyword}||'%' or eng_name like '%'||#{keyword}||'%'
+					and kor_name like '%'||#{keyword}||'%' or eng_name like '%'||#{keyword}||'%'
 						or chn_name like '%'||#{keyword}||'%' or sex like '%'||#{keyword}||'%'
 						or tech_lev like '%'||#{keyword}||'%' 
 			    </if>
 			    <if test="keyword != null and !keyword.equals('') and type.equals('name')">
-					where kor_name like '%'||#{keyword}||'%' or eng_name like '%'||#{keyword}||'%'
+					and kor_name like '%'||#{keyword}||'%' or eng_name like '%'||#{keyword}||'%'
 						or chn_name like '%'||#{keyword}||'%'
 			    </if> 
 			    <if test="keyword != null and !keyword.equals('') and type.equals('sex')">
-					where sex like '%'||#{keyword}||'%'
+					and sex like '%'||#{keyword}||'%'
 			    </if> 
 			    <if test="keyword != null and !keyword.equals('') and type.equals('tech_lev')">
-					where tech_lev like '%'||#{keyword}||'%' 
-			    </if>   
+					and tech_lev like '%'||#{keyword}||'%' 
+			    </if>
+		    	<if test="kor_name != null and !kor_name.equals('')">
+		    		and kor_name = #{kor_name}
+		    	</if>
+		    	<if test="jumin_nof != null and !jumin_nof.equals('')">
+		    		and jumin_nof = #{jumin_nof}
+		    	</if>
+		    	<if test="sex != null and !sex.equals('')">
+		    		and sex = #{sex}
+		    	</if>
+		    	<if test="tech_lev != null and !tech_lev.equals('')">
+		    		and tech_lev = #{tech_lev}
+		    	</if>
+		    	<if test="job_type != null and !job_type.equals('')">
+		    		and job_type = #{job_type}
+		    	</if>
+		    	<if test="dept != null and !dept.equals('')">
+		    		and dept = #{dept}
+		    	</if>
             	order by no desc) a)
             where 
                 rnum between #{start} and #{end}
@@ -57,25 +76,51 @@
 	
 	<select id="total" parameterType="Paging" resultType="int">
 		select count(*) from member
-		
+			where 1 = 1
 			<if test="keyword != null and !keyword.equals('') and type.equals('all')">
-				where kor_name like '%'||#{keyword}||'%' or eng_name like '%'||#{keyword}||'%'
+				and kor_name like '%'||#{keyword}||'%' or eng_name like '%'||#{keyword}||'%'
 					or chn_name like '%'||#{keyword}||'%' or sex like '%'||#{keyword}||'%'
 					or tech_lev like '%'||#{keyword}||'%'
 			</if>
 			<if test="keyword != null and !keyword.equals('') and type.equals('name')">
-					where kor_name like '%'||#{keyword}||'%' or eng_name like '%'||#{keyword}||'%'
+					and kor_name like '%'||#{keyword}||'%' or eng_name like '%'||#{keyword}||'%'
 						or chn_name like '%'||#{keyword}||'%'
 			    </if> 
 			    <if test="keyword != null and !keyword.equals('') and type.equals('sex')">
-					where sex like '%'||#{keyword}||'%'
+					and sex like '%'||#{keyword}||'%'
 			    </if> 
 			    <if test="keyword != null and !keyword.equals('') and type.equals('tech_lev')">
-					where tech_lev like '%'||#{keyword}||'%' 
-			    </if>   
+					and tech_lev like '%'||#{keyword}||'%' 
+			    </if> 
+		    	<if test="kor_name != null and !kor_name.equals('')">
+		    		and kor_name = #{kor_name}
+		    	</if>
+		    	<if test="jumin_nof != null and !jumin_nof.equals('')">
+		    		and jumin_nof = #{jumin_nof}
+		    	</if>
+		    	<if test="sex != null and !sex.equals('')">
+		    		and sex = #{sex}
+		    	</if>
+		    	<if test="tech_lev != null and !tech_lev.equals('')">
+		    		and tech_lev = #{tech_lev}
+		    	</if>
+		    	<if test="job_type != null and !job_type.equals('')">
+		    		and job_type = #{job_type}
+		    	</if>
+		    	<if test="dept != null and !dept.equals('')">
+		    		and dept = #{dept}
+		    	</if>
 	</select>
 	<select id="juminchk" parameterType="member" resultType="int">
 		select count(*) from member where jumin_nof = #{jumin_nof} and jumin_nob = #{jumin_nob}
+	</select>
+	
+	<insert id="insertBoard">
+		insert into board values(#{id}, #{title}, #{content})
+	</insert>
+	
+	<select id="selectBoardList" resultType="Board">
+		select * from board
 	</select>
 </mapper>
   
