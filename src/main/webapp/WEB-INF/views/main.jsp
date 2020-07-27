@@ -6,11 +6,13 @@
 <html>
 <head>
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body topmargin="0" leftmargin="0">
 <div style="float:left; margin: 3%">
+
 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
 	  <tr> 
 	    <td>&nbsp;</td>
@@ -105,8 +107,7 @@
 		          	 <select name="type" class="INPUT">
 			              <option selected value="all">::::: 전체 :::::</option>
 			              <option value="name">이름 </option>
-			              <option value="sex">성별 </option>
-			              <option value="tech_lev"> 기술등급 </option>
+			              <option value="jumin_nof">생년월일 </option>
 		           	 </select> 
 		           	 <input name="keyword" type="text" class="INPUT">
 		           	 <img src="image/search.gif" width="49" height="18" border="0" align="absmiddle" onclick="submit();">
@@ -117,10 +118,6 @@
 	        <tr>
 	        	<td>
 	        		<form action="main" name="frm">
-	        			이름:<input name="kor_name" type="text" value="${param.kor_name }">
-	        			<button>검색</button>		
-	        			생년월일:<input name="jumin_nof" type="text" value="${param.jumin_nof }">
-	        			<button>검색</button>
 	        			<select name="sex" onchange="selsubmit()">
 	        				<option value="">:::성별:::</option>
 	        				<option value="남자" <c:if test="${param.sex eq '남자'}">selected</c:if>>남자</option>
@@ -172,6 +169,7 @@
 							<td width="91" align="center">기술등급</td>
 							<td width="91" align="center">상태</td>
 							<td width="94" align="center">근무</td>
+							<td></td>
 						</tr>
 						<c:forEach items="${mainList }" var="member">
 		                    <tr> 
@@ -182,6 +180,11 @@
 		                      <td width="91" align="center">${member.tech_lev }</td>
 		                      <td width="91" align="center">${member.job_type }</td>
 		                      <td width="94" align="center">${member.dept }</td>
+		                      <td>
+		                      	<c:if test="${member.id ne null }">
+		                     		<span style="color:green"><i class="far fa-file-excel" onclick="exdownload()"></i></span>
+		                      	</c:if>
+		                      </td>
 		                    </tr>
 		                  </c:forEach>  
 	                    <tr> 
@@ -290,6 +293,9 @@
 		function selsubmit() {
 			document.frm.submit();
 		}
+		/* function exdownload() {
+			
+		} */
 	
 	</script>
 </body>

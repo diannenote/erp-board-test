@@ -5,11 +5,37 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+	
+	function submit() {
+		var formData = new FormData;
+		var file = document.getElementById("fileupload").files[0];
+		var jumin = opener.document.getElementById("jumin2").value;
+		formData.append("excelfile", file);
+		formData.append("jumin", jumin);
+		console.log(formData);
+		$.ajax({
+		    type : "POST",
+		    url : "excelupload",
+		    data : formData,
+		    processData: false,
+		    contentType: false,
+		    success : function(data) {
+		        alert("등록되었습니다.");
+		        opener.document.getElementById("exfilename").innerText = document.getElementById("fileupload").files[0].name;
+		        window.close();
+		    },
+		    err : function(err) {
+		        alert(err.status);
+		    }
+		});
+	}
+
+</script>	
 </head>
 <body>
-	<form action="excelupload" method="post" enctype="multipart/form-data">
-		<input name="file" type="file">
-		<button>등록</button>
-	</form>
+	<input name="files" id="fileupload" type="file" />
+	<button onclick="submit()">등록</button>
 </body>
 </html>

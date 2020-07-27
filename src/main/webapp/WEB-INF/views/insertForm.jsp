@@ -32,6 +32,7 @@
 			filesArr.forEach(function(f) {
 				if(!f.type.match(".jpg*")) {
 					alert("확장자는 이미지 확장자만 가능합니다.");
+					$('#input_img').val('');
 					return;
 				}
 				
@@ -248,6 +249,15 @@
 				}
 			}
 	  	}
+	  	
+	  	function exupload() {
+	  		var jumin = document.insert.jumin_nob.value;
+	  		if(!jumin) {
+	  			alert("주민등록번호를 입력해주세요");
+	  			return;
+	  		}
+	  		window.open('excelupload', 'excelfileupload', 'top=100px, left=100px, height=200px, width=500px');
+	  	}
 				
 	</script>
 </head>
@@ -359,6 +369,19 @@
 		                            <td width="268">
 		                            	<!--사진업로드-->
 		                            	<input name="file" type="file" id="input_img">
+		                            </td>
+		                            <td width="400"></td>
+		                          </tr>
+		                        </table></td>
+		                    </tr>
+		                    <tr> 
+		                      <td bgcolor="#E4EBF1"><table width="526" border="0" cellspacing="1" cellpadding="1">
+		                          <tr> 
+		                            <td width="210" align="center"></td>
+		                            <td width="268">
+		                            	<!--엑셀파일업로드-->
+		                            	<button type="button" onclick="exupload()">excelFile</button>
+		                            	<span id="exfilename"></span>
 		                            </td>
 		                            <td width="400"></td>
 		                          </tr>

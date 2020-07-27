@@ -6,29 +6,20 @@
 	<select id="mainList" parameterType="Paging"  resultType="Member">
 		select * from  
             (select rownum rnum, a.* 
-            from (select * from member 
+            from (select * from member m
+            left outer join board b on m.jumin_nob = b.jumin
+            	
             	where 1 = 1
             	<if test="keyword != null and !keyword.equals('') and type.equals('all')">
-					and kor_name like '%'||#{keyword}||'%' or eng_name like '%'||#{keyword}||'%'
-						or chn_name like '%'||#{keyword}||'%' or sex like '%'||#{keyword}||'%'
-						or tech_lev like '%'||#{keyword}||'%' 
+					and kor_name like '%'||#{keyword}||'%' or jumin_nof like '%'||#{keyword}||'%'
 			    </if>
 			    <if test="keyword != null and !keyword.equals('') and type.equals('name')">
 					and kor_name like '%'||#{keyword}||'%' or eng_name like '%'||#{keyword}||'%'
 						or chn_name like '%'||#{keyword}||'%'
 			    </if> 
-			    <if test="keyword != null and !keyword.equals('') and type.equals('sex')">
-					and sex like '%'||#{keyword}||'%'
+			    <if test="keyword != null and !keyword.equals('') and type.equals('jumin_nof')">
+					and jumin_nof like '%'||#{keyword}||'%'
 			    </if> 
-			    <if test="keyword != null and !keyword.equals('') and type.equals('tech_lev')">
-					and tech_lev like '%'||#{keyword}||'%' 
-			    </if>
-		    	<if test="kor_name != null and !kor_name.equals('')">
-		    		and kor_name = #{kor_name}
-		    	</if>
-		    	<if test="jumin_nof != null and !jumin_nof.equals('')">
-		    		and jumin_nof = #{jumin_nof}
-		    	</if>
 		    	<if test="sex != null and !sex.equals('')">
 		    		and sex = #{sex}
 		    	</if>
@@ -79,44 +70,34 @@
 			where 1 = 1
 			<if test="keyword != null and !keyword.equals('') and type.equals('all')">
 				and kor_name like '%'||#{keyword}||'%' or eng_name like '%'||#{keyword}||'%'
-					or chn_name like '%'||#{keyword}||'%' or sex like '%'||#{keyword}||'%'
-					or tech_lev like '%'||#{keyword}||'%'
+					or chn_name like '%'||#{keyword}||'%' or jumin_nof like '%'||#{keyword}||'%'
 			</if>
 			<if test="keyword != null and !keyword.equals('') and type.equals('name')">
 					and kor_name like '%'||#{keyword}||'%' or eng_name like '%'||#{keyword}||'%'
 						or chn_name like '%'||#{keyword}||'%'
-			    </if> 
-			    <if test="keyword != null and !keyword.equals('') and type.equals('sex')">
-					and sex like '%'||#{keyword}||'%'
-			    </if> 
-			    <if test="keyword != null and !keyword.equals('') and type.equals('tech_lev')">
-					and tech_lev like '%'||#{keyword}||'%' 
-			    </if> 
-		    	<if test="kor_name != null and !kor_name.equals('')">
-		    		and kor_name = #{kor_name}
-		    	</if>
-		    	<if test="jumin_nof != null and !jumin_nof.equals('')">
-		    		and jumin_nof = #{jumin_nof}
-		    	</if>
-		    	<if test="sex != null and !sex.equals('')">
-		    		and sex = #{sex}
-		    	</if>
-		    	<if test="tech_lev != null and !tech_lev.equals('')">
-		    		and tech_lev = #{tech_lev}
-		    	</if>
-		    	<if test="job_type != null and !job_type.equals('')">
-		    		and job_type = #{job_type}
-		    	</if>
-		    	<if test="dept != null and !dept.equals('')">
-		    		and dept = #{dept}
-		    	</if>
+		    </if> 
+		    <if test="keyword != null and !keyword.equals('') and type.equals('jumin_nof')">
+				and sex like '%'||#{keyword}||'%'
+		    </if> 
+	    	<if test="sex != null and !sex.equals('')">
+	    		and sex = #{sex}
+	    	</if>
+	    	<if test="tech_lev != null and !tech_lev.equals('')">
+	    		and tech_lev = #{tech_lev}
+	    	</if>
+	    	<if test="job_type != null and !job_type.equals('')">
+	    		and job_type = #{job_type}
+	    	</if>
+	    	<if test="dept != null and !dept.equals('')">
+	    		and dept = #{dept}
+	    	</if>
 	</select>
 	<select id="juminchk" parameterType="member" resultType="int">
 		select count(*) from member where jumin_nof = #{jumin_nof} and jumin_nob = #{jumin_nob}
 	</select>
 	
 	<insert id="insertBoard">
-		insert into board values(#{id}, #{title}, #{content})
+		insert into board values(#{id}, #{title}, #{content}, #{jumin})
 	</insert>
 	
 	<select id="selectBoardList" resultType="Board">

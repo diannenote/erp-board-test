@@ -9,12 +9,12 @@ public class Paging {
 	private static final int PAGE_BLOCK   = 5;
 	private boolean before;
 	private boolean next;
-	
+//keyword 검색
 	private String type;
 	private String keyword;
 //	다중검색
-	private String kor_name, sex;
-	private String jumin_nof, tech_lev;
+	private String sex;
+	private String tech_lev;
 	private String dept, job_type;
 	
 	
@@ -26,28 +26,12 @@ public class Paging {
 		this.tech_lev = tech_lev;
 	}
 
-	public String getKor_name() {
-		return kor_name;
-	}
-
-	public void setKor_name(String kor_name) {
-		this.kor_name = kor_name;
-	}
-
 	public String getSex() {
 		return sex;
 	}
 
 	public void setSex(String sex) {
 		this.sex = sex;
-	}
-
-	public String getJumin_nof() {
-		return jumin_nof;
-	}
-
-	public void setJumin_nof(String jumin_nof) {
-		this.jumin_nof = jumin_nof;
 	}
 
 	public String getDept() {

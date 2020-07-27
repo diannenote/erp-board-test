@@ -74,6 +74,8 @@ public class MainServiceImpl implements MainService {
             String uploadFileName = iter.next();
             MultipartFile mFile = mReq.getFile(uploadFileName);
             String fileName = mFile.getOriginalFilename();
+            String jumin = mReq.getParameter("jumin");
+            System.out.println(jumin);
             if(fileName != null&& !fileName.equals("")){
                 File file = null;
                 try{
@@ -86,6 +88,7 @@ public class MainServiceImpl implements MainService {
                      
                     // DB insert
                     for(int i = 0; i <list.size(); i++){
+                    	list.get(i).setJumin(jumin);
                         mainDao.insertBoard(list.get(i));
                     }
                 } catch(Exception e ){

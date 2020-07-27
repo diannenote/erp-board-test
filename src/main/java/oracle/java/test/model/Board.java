@@ -5,7 +5,14 @@ public class Board {
 	private String id;
 	private String title;
 	private String content;
+	private String jumin;
 	
+	public String getJumin() {
+		return jumin;
+	}
+	public void setJumin(String jumin) {
+		this.jumin = jumin;
+	}
 	public String getId() {
 		return id;
 	}

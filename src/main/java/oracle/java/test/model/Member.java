@@ -1,6 +1,6 @@
 package oracle.java.test.model;
 
-public class Member {
+public class Member extends Board{
 	private int no;
 	private String kor_name, eng_name, chn_name;
 	private String jumin_nof, jumin_nob;

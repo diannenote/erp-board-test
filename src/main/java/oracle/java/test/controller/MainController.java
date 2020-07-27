@@ -37,11 +37,10 @@ public class MainController {
 	@RequestMapping("main")
 	public String main(Model model, Paging paging) {
 		System.out.println("main controller");
-		
+		System.out.println("type = "+ paging.getType() + "keyword" + paging.getKeyword());
 		List<Member> mainList = mainService.mainList(paging);
 		int total = mainService.total(paging);
 		paging.setTotal(total);
-		System.out.println(paging.getSex() +","+ paging.getKor_name());
 		model.addAttribute("mainList", mainList);
 		model.addAttribute("paging", paging);
 		model.addAttribute("total", total);
@@ -165,6 +164,7 @@ public class MainController {
 	 
 	 @RequestMapping(value = "/excelupload", method = RequestMethod.POST)
 	 public ModelAndView fildUpload(MultipartHttpServletRequest mReq) {
+		 System.out.println("excelupload post:::::");
 	     ModelAndView mav = new ModelAndView();
 	     try{
 	         mainService.excelFileUpload(mReq);
