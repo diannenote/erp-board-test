@@ -40,7 +40,7 @@
 	<insert id="insert" parameterType="Member">
 		insert into member values(num_sql.nextval, #{kor_name}, #{eng_name}, #{chn_name}, #{jumin_nof}, #{jumin_nob}, #{image},
                 #{birth1}, #{birth2}, #{birth3}, #{sol_flag}, #{sex}, #{marry_flag}, #{work_year}, #{payment_type}, #{dept}, #{job_type}, #{address},
-                #{phone1}, #{phone2}, #{phone3}, #{email}, #{tech_lev}, #{liquor})
+                #{phone1}, #{phone2}, #{phone3}, #{email}, #{tech_lev}, #{liquor}, #{exfile})
 	</insert>
 	
 	<delete id="delete" parameterType="String">
@@ -61,7 +61,7 @@
 					image=#{image},
 				</if>
                 birth1=#{birth1}, birth2=#{birth2}, birth3=#{birth3}, sol_flag=#{sol_flag}, sex=#{sex}, marry_flag=#{marry_flag}, work_year=#{work_year}, payment_type=#{payment_type}, dept=#{dept}, job_type=#{job_type}, address=#{address},
-                phone1=#{phone1}, phone2=#{phone2}, phone3=#{phone3}, email=#{email}, tech_lev=#{tech_lev}, liquor=#{liquor}
+                phone1=#{phone1}, phone2=#{phone2}, phone3=#{phone3}, email=#{email}, tech_lev=#{tech_lev}, liquor=#{liquor}, exfile=#{exfile}
         where no=#{no}
 	</update>
 	
@@ -100,8 +100,8 @@
 		insert into board values(#{id}, #{title}, #{content}, #{jumin})
 	</insert>
 	
-	<select id="selectBoardList" resultType="Board">
-		select * from board
+	<select id="selectBoardList" parameterType="String" resultType="Board">
+		select * from board where jumin=#{jumin}
 	</select>
 </mapper>
   

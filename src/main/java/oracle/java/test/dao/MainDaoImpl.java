@@ -58,8 +58,8 @@ public class MainDaoImpl implements MainDao {
 	}
 
 	@Override
-	public List<Board> getBoardList() {
-		return session.selectList("selectBoardList");
+	public List<Board> getBoardList(String jumin) {
+		return session.selectList("selectBoardList", jumin);
 	}
 	
 }

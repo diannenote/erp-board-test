@@ -18,7 +18,7 @@ public interface MainService {
 	void delete(String[] strArray);
 	int juminchk(Member member);
 	void excelFileUpload(MultipartHttpServletRequest mReq);
-	List<Board> getList();
+	List<Board> getList(String jumin);
 
 	
 }

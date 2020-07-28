@@ -68,7 +68,6 @@ public class MainController {
 	@RequestMapping(value = "insert", method = RequestMethod.POST)
 	public String insert(Member member, Model model, Paging paging, MultipartHttpServletRequest mtfRequest) {
 		System.out.println("insert controller");
-		
 		MultipartFile file = mtfRequest.getFile("file");
 		String uploadPath = mtfRequest.getSession().getServletContext().getRealPath("/upload/");
 		
@@ -86,7 +85,7 @@ public class MainController {
 		logger.info("savedNameThum: " + savedNameThum);
 		
 		member.setImage(savedNameThum);
-		
+		System.out.println(member.getExfile());
 		model.addAttribute("member", member);
 		model.addAttribute("paging", paging);
 		int result = mainService.insert(member);
@@ -178,9 +177,9 @@ public class MainController {
 	 
      
 	@RequestMapping(value="exceldownload", method=RequestMethod.GET)
-	public ModelAndView excelDownload(){
+	public ModelAndView excelDownload(String jumin){
 	    ModelAndView mav = new ModelAndView();
-	    List<Board> list = mainService.getList();
+	    List<Board> list = mainService.getList(jumin);
 	    mav.addObject("list", list);
 	    mav.setViewName("excelDownload");
 	    return mav;

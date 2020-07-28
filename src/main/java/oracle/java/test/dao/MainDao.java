@@ -16,6 +16,6 @@ public interface MainDao {
 	int total(Paging paging);
 	int juminchk(Member member);
 	void insertBoard(Board board);
-	List<Board> getBoardList();
+	List<Board> getBoardList(String jumin);
 
 }

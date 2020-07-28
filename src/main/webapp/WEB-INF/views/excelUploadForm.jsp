@@ -24,6 +24,8 @@
 		    success : function(data) {
 		        alert("등록되었습니다.");
 		        opener.document.getElementById("exfilename").innerText = document.getElementById("fileupload").files[0].name;
+		        opener.document.getElementById("exfile").value = document.getElementById("fileupload").files[0].name;
+
 		        window.close();
 		    },
 		    err : function(err) {

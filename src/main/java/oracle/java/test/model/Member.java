@@ -11,7 +11,22 @@ public class Member extends Board{
 	private String dept, job_type, address;
 	private String phone1, phone2, phone3;
 	private String email, tech_lev, liquor;
+	private String exfile;
 	
+	
+	
+	public String getExfile() {
+		return exfile;
+	}
+
+
+
+	public void setExfile(String exfile) {
+		this.exfile = exfile;
+	}
+
+
+
 	public int getNo() {
 		return no;
 	}

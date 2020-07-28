@@ -175,14 +175,14 @@
 		                    <tr> 
 		                      <td width="35" height="20" align="center"><input type="checkbox" name="checkbox" class="checkbox" value="${member.no }"></td>
 		                      <td width="85" align="center"><a href='content?no=${member.no }&currentPage=${paging.currentPage}'>${member.kor_name }</a></td>
-		                      <td width="153" align="center">${member.jumin_nof }-${member.jumin_nob }</td>
+		                      <td width="153" align="center"><span id="target">${member.jumin_nof }</span>-${member.jumin_nob }</td>
 		                      <td width="91" align="center">${member.sex }</td>
 		                      <td width="91" align="center">${member.tech_lev }</td>
 		                      <td width="91" align="center">${member.job_type }</td>
 		                      <td width="94" align="center">${member.dept }</td>
 		                      <td>
-		                      	<c:if test="${member.id ne null }">
-		                     		<span style="color:green"><i class="far fa-file-excel" onclick="exdownload()"></i></span>
+		                      	<c:if test="${member.id ne null }" >
+		                     		<span style="color:green"><i class="far fa-file-excel" onclick="exdownload(${member.jumin_nob})"></i></span>
 		                      	</c:if>
 		                      </td>
 		                    </tr>
@@ -293,9 +293,10 @@
 		function selsubmit() {
 			document.frm.submit();
 		}
-		/* function exdownload() {
-			
-		} */
+	    function exdownload(jumin) {
+	    	console.log(jumin);
+			location.href = "exceldownload?jumin=" + jumin;
+		} 
 	
 	</script>
 </body>

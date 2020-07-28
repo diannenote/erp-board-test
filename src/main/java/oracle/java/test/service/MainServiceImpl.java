@@ -133,8 +133,9 @@ public class MainServiceImpl implements MainService {
         return list;
     }
 	
-	public List<Board> getList() {
-		return mainDao.getBoardList();
+	@Override
+	public List<Board> getList(String jumin) {
+		return mainDao.getBoardList(jumin);
 	}   
 	
 }
