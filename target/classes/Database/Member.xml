@@ -6,7 +6,7 @@
 	<select id="mainList" parameterType="Paging"  resultType="Member">
 		select * from  
             (select rownum rnum, a.* 
-            from (select * from member m
+            from (select distinct b.jumin, m.* from member m
             left outer join board b on m.jumin_nob = b.jumin
             	
             	where 1 = 1

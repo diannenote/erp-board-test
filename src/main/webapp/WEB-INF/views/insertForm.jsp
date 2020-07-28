@@ -68,7 +68,8 @@
 			var phone3 = document.getElementById("phone3").value;
 			var email = document.getElementById("email").value;
 			
-			if(confirm("등록하시겠습니까?")) {
+			var chk = confirm("등록하시겠습니까?");
+			if(chk) {
 				var korck = regKor.test(kor);
 				var engck = regEng.test(eng);
 				var hanmchk = fegHanm.test(hanm);
@@ -162,8 +163,8 @@
 					$("#email").focus();
 					return false;
 				}
-			
-
+			} else {
+				return false;
 			}
 		}
 		function check() {

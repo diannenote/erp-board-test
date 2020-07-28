@@ -181,7 +181,7 @@
 		                      <td width="91" align="center">${member.job_type }</td>
 		                      <td width="94" align="center">${member.dept }</td>
 		                      <td>
-		                      	<c:if test="${member.id ne null }" >
+		                      	<c:if test="${member.jumin ne null }" >
 		                     		<span style="color:green"><i class="far fa-file-excel" onclick="exdownload(${member.jumin_nob})"></i></span>
 		                      	</c:if>
 		                      </td>
