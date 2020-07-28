@@ -93,11 +93,7 @@ public class MainServiceImpl implements MainService {
                     }
                 } catch(Exception e ){
                     e.printStackTrace();
-                } finally{
-                    if( file != null&&file.exists()){
-                        file.delete();
-                    }
-                }
+                } 
             }
         }
     }

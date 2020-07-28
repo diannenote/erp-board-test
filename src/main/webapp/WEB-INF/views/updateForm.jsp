@@ -9,7 +9,8 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Insert title here</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+<title>Update title here</title>
 <style type="text/css">
 		.img_wrap {
 			width: 100px;
@@ -89,8 +90,8 @@
 				var phone2chk = regNum.test(phone2);
 				var phone3chk = regNum.test(phone3);
 				var emailchk = regEmail.test(email);
-				var juminfStr = document.insert.jumin_nof.value.length;
-				var juminbStr = document.insert.jumin_nob.value.length;
+				var juminfStr = document.update.jumin_nof.value.length;
+				var juminbStr = document.update.jumin_nob.value.length;
 				if(!korck) {
 					alert("한글이름은 한글로 입력해주세요");
 					$("#kor").val('');
@@ -174,9 +175,9 @@
 			}
 		}
 		function check() {
-			var str = document.insert.jumin_nof.value.length;
+			var str = document.update.jumin_nof.value.length;
 		     if(str == 6) {
-		       document.insert.jumin_nob.focus();
+		       document.update.jumin_nob.focus();
 		       $("#jumin2").val('');
 		     }
 		     if(str > 6) {
@@ -189,29 +190,29 @@
 		function inputbirth() {
 		    var temp1,temp2,temp3;
 
-		        temp1 = document.insert.jumin_nof.value.substring(0,2);
-		        temp2 = document.insert.jumin_nof.value.substring(2,4);
-		        temp3 = document.insert.jumin_nof.value.substring(4,6);
+		        temp1 = document.update.jumin_nof.value.substring(0,2);
+		        temp2 = document.update.jumin_nof.value.substring(2,4);
+		        temp3 = document.update.jumin_nof.value.substring(4,6);
 		        if( temp1 < 30 ){ 
-		        	document.insert.birth1.value="20"+temp1; 
+		        	document.update.birth1.value="20"+temp1; 
 		        } else { 
-		        	document.insert.birth1.value="19"+temp1; 
+		        	document.update.birth1.value="19"+temp1; 
 		        }
-		            document.insert.birth2.value=temp2;
-		            document.insert.birth3.value=temp3; 
+		            document.update.birth2.value=temp2;
+		            document.update.birth3.value=temp3; 
 		}
 		
 		function check2() {
-			var str1 = document.insert.jumin_nob.value.length;
-			var str2 = document.insert.jumin_nof.value.length;
+			var str1 = document.update.jumin_nob.value.length;
+			var str2 = document.update.jumin_nof.value.length;
 		    if(str1 > 7 ) {
 		    	alert("주민등록번호 뒤 7자리를 입력해주세요");
 		    	$("#jumin2").val('');
 				$("#jumin2").focus();
 		    }
 		    if(str2 == 6 && str1 == 7 ) {
-		    	var jumin_nof = document.insert.jumin_nof.value;
-		    	var jumin_nob = document.insert.jumin_nob.value;
+		    	var jumin_nof = document.update.jumin_nof.value;
+		    	var jumin_nob = document.update.jumin_nob.value;
 		    	$.ajax({
 					type : "POST",
 					url: "juminchk",
@@ -255,11 +256,23 @@
 					}
 				}
 		  	}
+		  	function exupload() {
+		  		var jumin = document.update.jumin_nob.value;
+		  		if(!jumin) {
+		  			alert("주민등록번호를 입력해주세요");
+		  			return;
+		  		}
+		  		window.open('excelupload', 'excelfileupload', 'top=100px, left=100px, height=200px, width=500px');
+		  	}
+		  	function exdownload(jumin) {
+		    	console.log(jumin);
+				location.href = "exceldownload?jumin=" + jumin;
+			} 
 		
 	</script>
 </head>
 <body topmargin="0" leftmargin="0">
-	<form name="insert" action="update" method="post"  enctype="multipart/form-data" onsubmit="return validate();">
+	<form name="update" action="update" method="post"  enctype="multipart/form-data" onsubmit="return validate();">
 		<input type="hidden" name="no" value="${member.no }">
 		<table width="640" border="0" cellspacing="0" cellpadding="0">
 		  <tr> 
@@ -368,14 +381,31 @@
 		                    <tr> 
 		                      <td bgcolor="#E4EBF1"><table width="526" border="0" cellspacing="1" cellpadding="1">
 		                          <tr> 
-		                            <td width="102" align="right"><strong>사진파일명 :&nbsp;</strong></td>
+		                            <td width="250" align="right"><strong>사진파일명 :&nbsp;</strong></td>
 		                            <td width="268">
 		                            <!--사진업로드--> ${member.image }
-		                            	<input name="file" type="file" id="input_img" accept="image/jpg">이거
+		                            	<input name="file" type="file" id="input_img" accept="image/jpg">
 		                            <td width="400"></td>
 		                          </tr>
 		                        </table></td>
 		                    </tr>
+		                    <tr> 
+		                      <td bgcolor="#E4EBF1"><table width="526" border="0" cellspacing="1" cellpadding="1">
+		                          <tr> 
+		                            <td width="180" align="center"></td>
+		                            <td width="268">
+		                            	<!--엑셀파일업로드-->
+		                            	<button type="button" onclick="exupload()">excelFile</button>
+		                            	<span id="exfilename">${member.exfile }</span>
+		                            	<c:if test="${member.jumin ne null }" >
+		                     				<span style="color:green"><i class="far fa-file-excel" onclick="exdownload(${member.jumin_nob})">(파일다운)</i></span>
+		                      			</c:if>
+		                            </td>
+		                            <td width="400"></td>
+		                          </tr>
+		                        </table></td>
+		                    </tr>
+		                    <tr> 
 		                    <tr> 
 		                      <td bgcolor="#E4EBF1"><table width="500" border="0" cellspacing="1" cellpadding="1">
 		                          <tr> 

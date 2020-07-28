@@ -12,9 +12,21 @@ public class Member extends Board{
 	private String phone1, phone2, phone3;
 	private String email, tech_lev, liquor;
 	private String exfile;
+	private String jumin;
 	
 	
-	
+	public String getJumin() {
+		return jumin;
+	}
+
+
+
+	public void setJumin(String jumin) {
+		this.jumin = jumin;
+	}
+
+
+
 	public String getExfile() {
 		return exfile;
 	}
